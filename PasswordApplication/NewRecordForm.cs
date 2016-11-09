@@ -9,26 +9,25 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using PasswordApplication.Model;
+using PasswordApplication.AbstractClass;
 
 namespace PasswordApplication
 {
     //Create a new record screen
     public partial class NewRecordForm : Form
     {
-
-
-        //CoreFunctions cf = new CoreFunctions();
+        //instantiate objects to call classes
         MainForm mainForm = new MainForm();
-        Validation validate = new Validation();
-        DatabaseHelper dh = new DatabaseHelper();
+        Validation validate = new Validation(); //should be removed
+        DatabaseHelper dh = new DatabaseHelper();//should be removed
 
         UserNameValidator unv = new UserNameValidator();
         PasswordValidator pv = new PasswordValidator();
         NoteValidator nv = new NoteValidator();
         UserRecord userRecord = new UserRecord();
-        
 
-        SqlConnection conn;
+
+        SQLServerConnMaker SQLconn = new SQLServerConnMaker();
         //private DataViewManager dsView;
         private DataSet ds;
 
@@ -36,26 +35,19 @@ namespace PasswordApplication
         public NewRecordForm()
         {
             InitializeComponent();
-
-
-            conn = new SqlConnection(@"Data Source=RYAN\RYANMSSQLSERVER; Initial Catalog=HexylogyDB;Integrated Security=SSPI");
-            string getCategoryName = "SELECT DISTINCT d.CategoryID,d.CategoryName FROM UserRecord a INNER JOIN UserAccount b on b.UserAccountID = a.UserAccountID INNER JOIN UserRecordCategories c on c.RecordID = a.RecordID INNER JOIN Categories d on d.CategoryID = c.CategoryID WHERE b.UserAccountID = 1";
-            SqlDataAdapter da = new SqlDataAdapter(getCategoryName,conn);
-            
+            string getCategoryName = "SELECT CategoryName FROM Categories WHERE UserAccountID = 1;";
+            SqlDataAdapter da = new SqlDataAdapter(getCategoryName, SQLconn.Connect());
 
             // Build a dataset
             ds = new DataSet();
             da.Fill(ds, "Categories");
             // Table in Dataset
-            
 
-            DataSet ResultSet = new DataSet();
-            DatabaseHelper.manupulateCategory(1).Fill(ResultSet, "Categories");
-            foreach (DataRow dr1 in ResultSet.Tables[0].Rows)
+            foreach (DataRow dr1 in ds.Tables[0].Rows)
             {
                 CategoryOptionComboBox.Items.Add(dr1["CategoryName"].ToString());
             }
-            
+
 
         }
         private void NewRecordForm_Load(object sender, EventArgs e)
@@ -68,6 +60,7 @@ namespace PasswordApplication
         {
             //Close New Record window
             this.Close();
+            mainForm.Show();
         }
 
         private void SaveNewRecordButton_Click(object sender, EventArgs e)
@@ -75,7 +68,13 @@ namespace PasswordApplication
             if (validating() == true)
             {
                 //pass information to DB
-                passInput();
+                //Method passInput() must be called from AddUserRecordhelper.cs
+                //passInput();
+
+                //AddUserRecordhelper addUserRecordhelper = new AddUserRecordhelper();
+                //AbDatabaseEntity UserName;
+                //addUserRecordhelper.SaveEntity(UserName);
+
                 MessageBox.Show("Success");
                 this.Close();
 				mainForm.Show();
@@ -105,7 +104,6 @@ namespace PasswordApplication
             {
                 //validation for password is correct
                 errorProvider1.SetError(PasswordTextBox, "");
-                
             }
             else
             {
@@ -139,6 +137,7 @@ namespace PasswordApplication
         }
 
         //method to make Connection to database
+        //this method have to be deleted
         private void passInput()
         {
             dh.PassCategory = CategoryOptionComboBox.Text;
@@ -147,7 +146,7 @@ namespace PasswordApplication
             dh.PassNote = NoteTextBox.Text;
             dh.passInput();  
         }
-        //method to show masked characters when checkbox is selected
+        //method to show masked characters when check box is selected
         private void ShowPasswordChkBox_CheckedChanged_1(object sender, EventArgs e)
         {
             if (ShowPasswordChkBox.Checked == true)

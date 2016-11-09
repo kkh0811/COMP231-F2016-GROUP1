@@ -56,13 +56,9 @@ namespace PasswordApplication
 
         // Specify a Connection string. Replace the given value with a 
         // valid Connection string for a production database accessible to your system.
-        private static String connectionString =
-            "Integrated Security=SSPI;Persist Security Info=False;" +
-            //"MultipleActiveResultSets=True;" +        // Enabling Multiple Active Result Sets
-            "Initial Catalog=HexylogyDB;" +       // Database name is HexylogyDB
-            "Data Source=Lenovo-PC";  // Replace your SQL server name here.
+        private static String connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + System.Environment.CurrentDirectory + "\\Hexalogydb.mdf;Integrated Security=True";
 
-            
+
         //SQLconnection object
         private static SqlConnection conn = new SqlConnection(connectionString);
 

@@ -25,7 +25,8 @@ namespace PasswordApplication
         //User Record ID
         private int userRecordID;
 
-		ViewRecordForm vrf = new ViewRecordForm();
+        //set up sending information to other forms
+        ViewRecordForm vrf = new ViewRecordForm();
         EditRecordForm edf = new EditRecordForm();
         public MainForm()
         {
@@ -48,7 +49,7 @@ namespace PasswordApplication
         private void MainForm_Load(object sender, EventArgs e)
         {
             DisplayUserRecordDataGrid();
-            PopulateCategories();
+            //PopulateCategories();
 
 
         }

@@ -17,11 +17,11 @@ namespace PasswordApplication
         //pattern
         private string pattern = "^([1-zA-Z0-1@.\\s]{1,255})$";
         Regex regex;
-        UserRecord userRecord;
+        
 
         public bool Validate(string UserInput)
         {
-            userRecord.Note = UserInput;
+           
             regex = new Regex(pattern);
             if (regex.Match(UserInput).Success)
             {

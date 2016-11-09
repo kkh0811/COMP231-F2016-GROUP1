@@ -1,26 +1,34 @@
-﻿using PasswordApplication.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Text.RegularExpressions;
 using PasswordApplication.Model;
+using PasswordApplication.Interfaces;
+using System.Text.RegularExpressions;
 
 namespace PasswordApplication
 {
-    class PasswordValidator : IValidation
+    /// <summary>
+    /// This class interface from IValidation. 
+    /// Class will validate that the verify password text box is identical to the password text box.
+    /// </summary>
+    class VerifyPasswordValidator : IValidation
     {
-        //string pattern to match
-        private string pattern = "^([1-zA-Z0-1@.\\s]{1,255})$";
-        //instantiate Regular Expression
+        UserRecord userRecord = new UserRecord();
+        
+        //pattern should be password text box
+        private string pattern;
+        //Regular expression
         Regex regex;
 
         public bool Validate(string UserInput)
         {
+
             bool result = false;
-            //create obj regex and pattern is the string pattern
+            pattern = userRecord.UserPassword;
             regex = new Regex(pattern);
+
             try
             {
                 if (regex.Match(UserInput).Success)
@@ -34,7 +42,6 @@ namespace PasswordApplication
             }
             catch (Exception e)
             {
-                //output the exception error
                 Console.WriteLine(e);
             }
             return result;
