@@ -1,4 +1,5 @@
-﻿using PasswordApplication.Model;
+﻿using PasswordApplication.Controller;
+using PasswordApplication.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -73,8 +74,8 @@ namespace PasswordApplication
             userRecordDataGridView.Columns["Note"].Visible = false;
             userRecordDataGridView.Columns["RecordID"].Visible = false;
             // Rename columuns
-            userRecordDataGridView.Columns[0].HeaderText = "USER NAME";
-            userRecordDataGridView.Columns[1].HeaderText = "PASSWORD";
+            userRecordDataGridView.Columns[1].HeaderText = "USER NAME";
+            userRecordDataGridView.Columns[2].HeaderText = "PASSWORD";
             userRecordDataGridView.ScrollBars = ScrollBars.Horizontal;
             
         }
@@ -183,77 +184,32 @@ namespace PasswordApplication
         //User wants to "Delete" click -- right click meun
         private void deleteTollStripMenuItem_Click(object sender, EventArgs e)
         {
-            //Check if record in Record table,UserRecordCategory is deleted.
-            bool isRecordDeleted;
-            bool isRecordCategoryDeleted;
-
-            DialogResult result;
             if (userRecordID != 0)
-            {   //Confirm if user wants to delete the record
-                result = MessageBox.Show("Do You Want to delete?", "Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-                if (result.Equals(DialogResult.OK))
-                {
+            {  
                     //Instantiate new UserRecord and pass userRecordID to the RecordID property
                     UserRecord userRecord = new UserRecord();
                     userRecord.RecordID = userRecordID;
-                    //Call DeleteUserCategory and DeleteUserRecord hepler classes
-                    //Get the RecordId from the click row and send it as the delete record parameter
-                    //Remove the dependancy from userRecordCategory table first                  
-                    DeleteUserCategoryhelper deleteUserCategory = new DeleteUserCategoryhelper();
-                    isRecordCategoryDeleted = deleteUserCategory.DeleteEntity(userRecord);
-                    DeleteUserRecordhelper deleteUserRecord = new DeleteUserRecordhelper();
-                    isRecordDeleted = deleteUserRecord.DeleteEntity(userRecord);
-                    if ( isRecordDeleted && isRecordCategoryDeleted)
-                    {
-                        MessageBox.Show("The record has been deleted.");
-                        // display the result
-                        DisplayUserRecordDataGrid();
-                        //After delete reset userRecord to 0
+                    //Call DeleteRecordController to delete the UserRecord
+                    DeleteRecordController deleteController = new DeleteRecordController(this, userRecord);
+                    //After delete reset userRecord to 0
+                    if (deleteController.DeleteRecord())
                         userRecordID = 0;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Something wrong.");
-                    }
-                }
             }
         }
 
         //User wants to "Delete" click -- "Delete" button
         private void DeleteRecordButton_Click(object sender, EventArgs e)
         {
-            bool isRecordDeleted;
-            bool isRecordCategoryDeleted;
-
-            DialogResult result;
             if (userRecordID != 0)
-            {   //Confirm if user wants to delete the record
-                result = MessageBox.Show("Do You Want to delete?", "Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-                if (result.Equals(DialogResult.OK))
-                {
+            {   
                     //Instantiate new UserRecord and pass userRecordID to the RecordID property
                     UserRecord userRecord = new UserRecord();
                     userRecord.RecordID = userRecordID;
-                    //Call DeleteUserCategory and DeleteUserRecord hepler classes
-                    //Get the RecordId from the click row and send it as the delete record parameter
-                    //Remove the dependancy from userRecordCategory table first                  
-                    DeleteUserCategoryhelper deleteUserCategory = new DeleteUserCategoryhelper();
-                    isRecordCategoryDeleted = deleteUserCategory.DeleteEntity(userRecord);
-                    DeleteUserRecordhelper deleteUserRecord = new DeleteUserRecordhelper();
-                    isRecordDeleted = deleteUserRecord.DeleteEntity(userRecord);
-                    if (isRecordDeleted && isRecordCategoryDeleted)
-                    {
-                        MessageBox.Show("The record has been deleted.");
-                        // display the result
-                        DisplayUserRecordDataGrid();
-                        //After delete reset userRecord to 0
+                    //Call DeleteRecordController to delete the UserRecord
+                    DeleteRecordController deleteController = new DeleteRecordController(this, userRecord);
+                    //After delete reset userRecord to 0
+                    if (deleteController.DeleteRecord())
                         userRecordID = 0;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Something wrong.");
-                    }
-                }
             }
             else
             {

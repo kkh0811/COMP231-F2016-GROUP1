@@ -133,42 +133,7 @@ namespace PasswordApplication
             }
         }
 
-        //Delete record
-
-        public static void  deleteRecord(int RecordId)
-        {
-            
-            // Create the DeleteCommand.
-            // Delete record from UserRecordCategories table
-            SqlCommand deleteUserCategoryCmd;
-            deleteUserCategoryCmd = new SqlCommand("DELETE FROM UserRecordCategories WHERE RecordID = @RecordID;", conn);
-            // Delete record from UserRecord table
-            SqlCommand deleteUserRecordCmd;
-            deleteUserRecordCmd = new SqlCommand("DELETE FROM UserRecord WHERE RecordID = @RecordID", conn);
-
-
-            // Add the parameters for the DeleteCommand.
-            deleteUserCategoryCmd.Parameters.AddWithValue("@RecordID",RecordId);
-            deleteUserRecordCmd.Parameters.AddWithValue("@RecordID",RecordId);
-
-            try
-            {
-                conn.Open();
-                using (deleteUserCategoryCmd) { deleteUserCategoryCmd.ExecuteNonQuery(); }
-                using (deleteUserRecordCmd) { deleteUserRecordCmd.ExecuteNonQuery(); }
-            }
-            catch (Exception e)
-            {
-                //show error in output
-                Console.WriteLine(e.ToString());
-            }
-            finally
-            {
-                conn.Close();
-            }
-
-        }
-
+        
         public static SqlDataAdapter manupulateCategory(int userAccountID,string categoryName = "")
         {
             SqlDataAdapter adapter = new SqlDataAdapter();
