@@ -20,5 +20,6 @@ namespace PasswordApplication.Interfaces
     interface IValidation
     {   
         bool Validate(string UserInput);
+      
     }
 }

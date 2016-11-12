@@ -13,26 +13,24 @@ namespace PasswordApplication
 {
     class AddUserRecordhelper : ISave
     {
-        public bool SaveEntity(AbDatabaseEntity Entity)
+        public bool SaveEntity(params AbDatabaseEntity[] Entity)
         {
             //start the connection string
             SQLServerConnMaker SQLconn = new SQLServerConnMaker();
-            //initialize user record values
-            UserRecord userRecord = (UserRecord)Entity;
-            //initialize user record category
-            UserRecordCategory userRecordCategory = (UserRecordCategory)Entity;
-
+            SqlConnection conn = SQLconn.Connect();
+            //initialize user record  and category values
+            UserRecord userRecord = (UserRecord)Entity[0];
+            Category category = (Category)Entity[1];
             //create the SQL command to add user input
             SqlCommand addUserRecord;
 
             try
             {
-                SQLconn.Connect().Open();
+                conn.Open();
                 //calling methods to demonstrate sqlCommand capabilities
-                addUserRecord = new SqlCommand("dbo.AddRecord", SQLconn.Connect());
+                addUserRecord = new SqlCommand("dbo.AddRecord", conn);
                 addUserRecord.CommandType = CommandType.StoredProcedure;
-                
-                //addUserRecord.Parameters.Add("@categoryName", SqlDbType.VarChar).Value = 
+                addUserRecord.Parameters.Add("@categoryID", SqlDbType.VarChar).Value = category.CategoryID;
                 addUserRecord.Parameters.Add("@id", SqlDbType.VarChar).Value = userRecord.UserName;
                 addUserRecord.Parameters.Add("@pw", SqlDbType.VarChar).Value = userRecord.UserPassword;
                 addUserRecord.Parameters.Add("@note", SqlDbType.VarChar).Value = userRecord.Note;
@@ -45,9 +43,9 @@ namespace PasswordApplication
             }
             finally
             {
-                SQLconn.Connect().Close();
+                conn.Close();
             }
-            throw new NotImplementedException();
+            return true;
         }
     }
 }

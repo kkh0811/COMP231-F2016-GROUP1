@@ -18,13 +18,11 @@ namespace PasswordApplication
     {
         //instantiate objects to call classes
         MainForm mainForm = new MainForm();
-        Validation validate = new Validation(); //should be removed
-        DatabaseHelper dh = new DatabaseHelper();//should be removed
-
         UserNameValidator unv = new UserNameValidator();
         PasswordValidator pv = new PasswordValidator();
         NoteValidator nv = new NoteValidator();
-        UserRecord userRecord = new UserRecord();
+        CategoryValidator cv = new CategoryValidator();
+
 
 
         SQLServerConnMaker SQLconn = new SQLServerConnMaker();
@@ -68,13 +66,15 @@ namespace PasswordApplication
             if (validating() == true)
             {
                 //pass information to DB
-                //Method passInput() must be called from AddUserRecordhelper.cs
-                //passInput();
-
-                //AddUserRecordhelper addUserRecordhelper = new AddUserRecordhelper();
-                //AbDatabaseEntity UserName;
-                //addUserRecordhelper.SaveEntity(UserName);
-
+                AddUserRecordhelper addUserRecordhelper = new AddUserRecordhelper();
+                UserRecord addRecord = new UserRecord();
+                Category category = new Category();
+                //UserRecordExtend addUserRecordExtend = new UserRecordExtend();
+                category.CategoryID = CategoryOptionComboBox.SelectedIndex;
+                addRecord.UserName = UserNameTextBox.Text;
+                addRecord.UserPassword = PasswordTextBox.Text;
+                addRecord.Note = NoteTextBox.Text;
+                addUserRecordhelper.SaveEntity(addRecord,category);
                 MessageBox.Show("Success");
                 this.Close();
 				mainForm.Show();
@@ -122,6 +122,15 @@ namespace PasswordApplication
                 errorProvider1.SetError(VerifyPasswordTextBox, "The passwords do not match.Please enter them again.");
                 return false;
             }
+            if (cv.Validate(CategoryOptionComboBox.SelectedItem.ToString()) == true)
+            {
+                errorProvider1.SetError(CategoryOptionComboBox, "");
+            }
+            else
+            {
+                errorProvider1.SetError(CategoryOptionComboBox, "Please select a category");
+                return false;
+            }
             if (nv.Validate(NoteTextBox.Text) == true)
             {
                 //correct validation
@@ -134,17 +143,6 @@ namespace PasswordApplication
                 errorProvider1.SetError(NoteTextBox, "Please don't put in any of the following characters ‘,\\*&amp;$&lt;&gt;");
                 return false;
             }
-        }
-
-        //method to make Connection to database
-        //this method have to be deleted
-        private void passInput()
-        {
-            dh.PassCategory = CategoryOptionComboBox.Text;
-            dh.PassUserName = UserNameTextBox.Text;
-            dh.PassPassword = PasswordTextBox.Text;
-            dh.PassNote = NoteTextBox.Text;
-            dh.passInput();  
         }
         //method to show masked characters when check box is selected
         private void ShowPasswordChkBox_CheckedChanged_1(object sender, EventArgs e)
