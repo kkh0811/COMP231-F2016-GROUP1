@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PasswordApplication.Controller;
+using PasswordApplication.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -72,8 +74,8 @@ namespace PasswordApplication
             userRecordDataGridView.Columns["Note"].Visible = false;
             userRecordDataGridView.Columns["RecordID"].Visible = false;
             // Rename columuns
-            userRecordDataGridView.Columns[0].HeaderText = "USER NAME";
-            userRecordDataGridView.Columns[1].HeaderText = "PASSWORD";
+            userRecordDataGridView.Columns[1].HeaderText = "USER NAME";
+            userRecordDataGridView.Columns[2].HeaderText = "PASSWORD";
             userRecordDataGridView.ScrollBars = ScrollBars.Horizontal;
             
         }
@@ -182,38 +184,32 @@ namespace PasswordApplication
         //User wants to "Delete" click -- right click meun
         private void deleteTollStripMenuItem_Click(object sender, EventArgs e)
         {
-            DialogResult result;
             if (userRecordID != 0)
-            {   //Confirm if user wants to delete the record
-                result = MessageBox.Show("Do You Want to delete?", "Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-                if (result.Equals(DialogResult.OK))
-                {
-                    //Get the RecordId from the click row and send it as the delete record parameter
-                    DatabaseHelper.deleteRecord(userRecordID);
-                    // display the result
-                    DisplayUserRecordDataGrid();
+            {  
+                    //Instantiate new UserRecord and pass userRecordID to the RecordID property
+                    UserRecord userRecord = new UserRecord();
+                    userRecord.RecordID = userRecordID;
+                    //Call DeleteRecordController to delete the UserRecord
+                    DeleteRecordController deleteController = new DeleteRecordController(this, userRecord);
                     //After delete reset userRecord to 0
-                    userRecordID = 0;
-                }
+                    if (deleteController.DeleteRecord())
+                        userRecordID = 0;
             }
         }
 
         //User wants to "Delete" click -- "Delete" button
         private void DeleteRecordButton_Click(object sender, EventArgs e)
         {
-            DialogResult result;
             if (userRecordID != 0)
-            {   //Confirm if user wants to delete the record
-                result = MessageBox.Show("Do You Want to delete?", "Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-                if (result.Equals(DialogResult.OK))
-                {
-                    //Get the RecordId from the click row and send it as the delete record parameter
-                    DatabaseHelper.deleteRecord(userRecordID);
-                    // display the result
-                    DisplayUserRecordDataGrid();
+            {   
+                    //Instantiate new UserRecord and pass userRecordID to the RecordID property
+                    UserRecord userRecord = new UserRecord();
+                    userRecord.RecordID = userRecordID;
+                    //Call DeleteRecordController to delete the UserRecord
+                    DeleteRecordController deleteController = new DeleteRecordController(this, userRecord);
                     //After delete reset userRecord to 0
-                    userRecordID = 0;
-                }
+                    if (deleteController.DeleteRecord())
+                        userRecordID = 0;
             }
             else
             {

@@ -15,37 +15,41 @@ namespace PasswordApplication
     /// </summary>
     class DeleteUserCategoryhelper : IDelete
     {
+        bool isDeleted;
         public bool DeleteEntity(AbDatabaseEntity Entity)
         {
             //Initial connection maker to make a connention 
             SQLServerConnMaker SQLconn = new SQLServerConnMaker();
-
+            SqlConnection conn = SQLconn.Connect();
             //Initial UserRecord entity
             UserRecord userRecord = (UserRecord)Entity;
 
             // Delete record from UserRecordCategories table
             SqlCommand deleteUserCategoryCmd;
-            deleteUserCategoryCmd = new SqlCommand("DELETE FROM UserRecordCategories WHERE RecordID = @RecordID;", SQLconn.Connect());
+            deleteUserCategoryCmd = new SqlCommand("DELETE FROM UserRecordCategories WHERE RecordID = @RecordID;", conn);
 
             // Add the parameters for the DeleteCommand.
             deleteUserCategoryCmd.Parameters.AddWithValue("@RecordID", userRecord.RecordID);
 
             try
             {
-                SQLconn.Connect().Open();
-                using (deleteUserCategoryCmd) { deleteUserCategoryCmd.ExecuteNonQuery(); }
+                conn.Open();
+                if (deleteUserCategoryCmd.ExecuteNonQuery() >= 1)
+                { isDeleted = true; }
+                else
+                { isDeleted = false; }
             }
             catch (Exception e)
             {
                 //show error in output
                 Console.WriteLine(e.ToString());
+                isDeleted = false;
             }
             finally
             {
-                SQLconn.Connect().Close();
+                conn.Close();
             }
-
-            throw new NotImplementedException();
+            return isDeleted;
         }
     }
 }
