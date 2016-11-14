@@ -12,9 +12,8 @@ namespace PasswordApplication
     class PasswordValidator : IValidation
     {
         //string pattern to match
-        private string pattern = "(?=^.{2,255}$)((?=.*\\d)(?=.*[A-Z])"
-            + "(?=.*[a-z])|(?=.*\\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|"+
-            "(?=.*\\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*";
+        //starting string has to be number or letter.
+        private string pattern = @"^[a-zA-Z0-9\d!""""#$%()*+,-/:;<>?@[\]^_`{|}~][a-zA-Z0-9\d!""""#$%()*+,-/:;<>?@[\]^_`{|}~]{2,29}$";
         //instantiate Regular Expression
         Regex regex;
 

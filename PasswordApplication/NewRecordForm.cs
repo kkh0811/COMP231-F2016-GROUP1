@@ -18,17 +18,16 @@ namespace PasswordApplication
     {
         //instantiate objects to call classes
         MainForm mainForm = new MainForm();
+        //instantiate validator classes
         UserNameValidator unv = new UserNameValidator();
         PasswordValidator pv = new PasswordValidator();
         NoteValidator nv = new NoteValidator();
         CategoryValidator cv = new CategoryValidator();
 
-
-
+        
         SQLServerConnMaker SQLconn = new SQLServerConnMaker();
         //private DataViewManager dsView;
         private DataSet ds;
-
 
         public NewRecordForm()
         {
@@ -54,6 +53,7 @@ namespace PasswordApplication
 
 
         }
+        //Event trigger on user pressing cancel
         private void CancelButton_Click(object sender, EventArgs e)
         {
             //Close New Record window
@@ -61,20 +61,25 @@ namespace PasswordApplication
             mainForm.Show();
         }
 
+        //Event trigger on user pressing Save
         private void SaveNewRecordButton_Click(object sender, EventArgs e)
         {
+            //if statement of the return bool value from method validating
             if (validating() == true)
             {
                 //pass information to DB
+                //instantiate AddUserRecordHelper, UserRecord, Category
                 AddUserRecordhelper addUserRecordhelper = new AddUserRecordhelper();
                 UserRecord addRecord = new UserRecord();
                 Category category = new Category();
-                //UserRecordExtend addUserRecordExtend = new UserRecordExtend();
                 category.CategoryID = CategoryOptionComboBox.SelectedIndex;
+                //Grab values from user inputs
                 addRecord.UserName = UserNameTextBox.Text;
                 addRecord.UserPassword = PasswordTextBox.Text;
                 addRecord.Note = NoteTextBox.Text;
+                //Pass entities to addUserRecordHelper class
                 addUserRecordhelper.SaveEntity(addRecord,category);
+                //On success show message box and close new record form and display the main form.
                 MessageBox.Show("Success");
                 this.Close();
 				mainForm.Show();
@@ -89,6 +94,7 @@ namespace PasswordApplication
         }
         private bool validating()
         {
+            errorProvider1.Clear();
             if (unv.Validate(UserNameTextBox.Text) == true)
             {
                 //validation for username is correct
@@ -97,7 +103,7 @@ namespace PasswordApplication
             else
             {
                 //validation for username is incorrect
-                errorProvider1.SetError(UserNameTextBox, "Please enter username in alphabets and numbers only");
+                errorProvider1.SetError(UserNameTextBox, "Please enter username in alphabets and numbers. Email format is allowed.");
                 return false;
             }
             if (pv.Validate(PasswordTextBox.Text) == true)
@@ -108,8 +114,10 @@ namespace PasswordApplication
             else
             {
                 //validation is incorrect
-                errorProvider1.SetError(PasswordTextBox, "The password cannot contain any of the following: ‘,\\*&amp;$&lt;&gt;");
+                errorProvider1.SetError(PasswordTextBox, "Please make sure your password has minimum two characters, at least one number and letter. \nCannot contain the following special characters:" +
+                    " & ' . OR ");
                 return false;
+                
             }
             if (PasswordTextBox.Text == VerifyPasswordTextBox.Text)
             {
@@ -140,11 +148,11 @@ namespace PasswordApplication
             else
             {
                 //incorrect validation
-                errorProvider1.SetError(NoteTextBox, "Please don't put in any of the following characters ‘,\\*&amp;$&lt;&gt;");
+                errorProvider1.SetError(NoteTextBox, "Please don't put in any of the following characters ‘, \\ * & ; - '");
                 return false;
             }
         }
-        //method to show masked characters when check box is selected
+        //Method to show masked characters when check box is selected
         private void ShowPasswordChkBox_CheckedChanged_1(object sender, EventArgs e)
         {
             if (ShowPasswordChkBox.Checked == true)

@@ -23,6 +23,8 @@ namespace PasswordApplication
             Category category = (Category)Entity[1];
             //create the SQL command to add user input
             SqlCommand addUserRecord;
+            bool recordAdded;
+
 
             try
             {
@@ -35,17 +37,28 @@ namespace PasswordApplication
                 addUserRecord.Parameters.Add("@pw", SqlDbType.VarChar).Value = userRecord.UserPassword;
                 addUserRecord.Parameters.Add("@note", SqlDbType.VarChar).Value = userRecord.Note;
                 addUserRecord.ExecuteNonQuery();
+                
+                if(addUserRecord.ExecuteNonQuery() >= 1)
+                {
+                    recordAdded = true;
+                }
+                else
+                {
+                    recordAdded = false;
+                }
+
             }
             catch (Exception e)
             {
                 //show error in output
                 Console.WriteLine(e.ToString());
+                recordAdded = false;
             }
             finally
             {
                 conn.Close();
             }
-            return true;
+            return recordAdded;
         }
     }
 }
