@@ -51,7 +51,7 @@ namespace PasswordApplication
         private void MainForm_Load(object sender, EventArgs e)
         {
             DisplayUserRecordDataGrid();
-            //PopulateCategories();
+            PopulateCategories();
 
 
         }
@@ -265,7 +265,6 @@ namespace PasswordApplication
         //Populate Category treeview 
         public void PopulateCategories()
         {
-
             // Query for the user categories. These are the values
             // for the nodes.
             DataSet ResultSet = new DataSet();
@@ -289,10 +288,12 @@ namespace PasswordApplication
                     // Add the new node to the ChildNodes collection of the parent node. Node[0] is the parent Node.
                     CategoryTreeView.Nodes[0].Nodes.Add(NewNode);
                     //MessageBox.Show(row["CategoryName"].ToString() + "is created.");
-                    //CategoryTreeView.ExpandAll();
+
                 }
             }
-            CategoryTreeView.Update();
+            
+            CategoryTreeView.ExpandAll();
+            CategoryTreeView.Refresh();
         }
 
         private void AddCategoryButton_Click(object sender, EventArgs e)

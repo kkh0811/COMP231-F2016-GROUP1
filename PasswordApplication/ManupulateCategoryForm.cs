@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PasswordApplication.Controller;
+using PasswordApplication.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,60 +27,23 @@ namespace PasswordApplication
 
         private void SaveNewCategoryButton_Click(object sender, EventArgs e)
         {
-            //Do some validation
-            string pattern = "^([1-zA-Z0-1@.\\s]{1,255})$";
-            bool isValidate;
-            string categoryName = CategoryNameTextBox.Text.Trim();
-            Validation validator = new Validation();
-            isValidate = validator.RegValidation(categoryName, pattern);
-            //If validation pass run ManupulateCatagory and pass the category name to the parameter
-            if (isValidate)
+            //Instantiate category model and save category name and UserAccountId (Assume UserAccountId is 1)to it.
+            Category category = new Category();
+            category.CategoryName = CategoryNameTextBox.Text.Trim();
+            category.UserAccountId = 1;
+
+            //Instantiate AddCategoryController 
+            AddCategoryController controller = new AddCategoryController(this,category);
+            if (controller.AddRecord())
             {
-                if (!checkIsCategoryExisted(categoryName))
-                {
-                    if (DatabaseHelper.addNewCategory(categoryName))
-                    {
-                        MessageBox.Show(String.Format("{0} has been inserted.",categoryName));
-                        this.Close();
-                        this.Dispose();
-                        MainForm MF = new MainForm();
-                        MF.PopulateCategories();
-                        MF.Refresh();
-                    }
-                }
+                //MessageBox.Show(String.Format("{0} has been inserted.", category.CategoryName));
             }
             else
             {
-                MessageBox.Show("Please input a validated category name.");
-
+                //Do nothing
+                //MessageBox.Show("Unable new category, please try again later.");
             }
         }
-
-        private bool checkIsCategoryExisted(string categoryName)
-        {
-            //Get the category table category name
-            DataSet ResultSet = new DataSet();
-            //Assume UserAccountID is 1
-            DatabaseHelper.manupulateCategory(1).Fill(ResultSet, "Categories");
-
-            if (ResultSet.Tables.Count > 0)
-            {
-                //Check if the category name already in the category table
-                foreach (DataRow row in ResultSet.Tables[0].Rows)
-                {
-                    if (categoryName == row["CategoryName"].ToString())
-                    {
-                        MessageBox.Show("Category name alreay existed.");
-                        return true;
-                    }
-                }
-                return false;
-            }
-            else
-            {
-                return  false;
-            }
-        }
-     
+ 
     }
 }
