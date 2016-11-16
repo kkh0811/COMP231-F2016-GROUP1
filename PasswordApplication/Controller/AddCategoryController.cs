@@ -58,7 +58,7 @@ namespace PasswordApplication.Controller
                     MainForm MF = new MainForm();
                     //Call view to update the category tree itself.
                     MF.PopulateCategories();
-                    MF.Refresh();
+                    MF.Show();
                 }
                 else
                 {

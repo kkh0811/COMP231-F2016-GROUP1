@@ -23,6 +23,8 @@ namespace PasswordApplication
         {
             this.Dispose();
             this.Close();
+            MainForm MF = new MainForm();
+            MF.Show();
         }
 
         private void SaveNewCategoryButton_Click(object sender, EventArgs e)

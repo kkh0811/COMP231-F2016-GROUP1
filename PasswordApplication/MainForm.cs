@@ -53,8 +53,6 @@ namespace PasswordApplication
         {
             DisplayUserRecordDataGrid();
             PopulateCategories();
-
-
         }
 
 
@@ -305,8 +303,10 @@ namespace PasswordApplication
 
         private void AddCategoryButton_Click(object sender, EventArgs e)
         {
+            this.Hide();
             ManupulateCategoryForm MCF = new ManupulateCategoryForm();
             MCF.ShowDialog();
+            
         }
 		private void EditRecordButton_Click(object sender, EventArgs e)
         {
