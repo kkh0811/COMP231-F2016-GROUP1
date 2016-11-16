@@ -1,4 +1,5 @@
-﻿using PasswordApplication.Controller;
+﻿using PasswordApplication.AbstractClass;
+using PasswordApplication.Controller;
 using PasswordApplication.Model;
 using System;
 using System.Collections.Generic;
@@ -268,7 +269,13 @@ namespace PasswordApplication
             // Query for the user categories. These are the values
             // for the nodes.
             DataSet ResultSet = new DataSet();
-            DatabaseHelper.manupulateCategory(1).Fill(ResultSet, "Categories");
+
+            //Get the UserAccountId, hard code UseAccount = 1, should be change to static class userAccount later.
+            Category category = new Category();
+            category.UserAccountId = 1;
+            //ListCategoryHelper's selectEntity() return SqlDataAdapter
+            ListCategoryHelper categoryList = new ListCategoryHelper();
+            categoryList.SelectEntity(category).Fill(ResultSet, "Categories");
             CategoryTreeView.Nodes[0].Nodes.Clear();
             // Create the second-level nodes.
             if (ResultSet.Tables.Count > 0)

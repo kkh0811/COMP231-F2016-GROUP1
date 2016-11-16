@@ -17,22 +17,13 @@ namespace PasswordApplication
         public bool checkIsCategoryExisted(AbDatabaseEntity entity)
         {
 
-            //Initial connection maker to make a connection 
-            SQLServerConnMaker SQLconn = new SQLServerConnMaker();
-            SqlConnection conn = SQLconn.Connect();
 
             //Get the category table category name
             DataSet ResultSet = new DataSet();
 
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            // Create the SelectCategoryCommand. Assume UserAccountID is 1
-            SqlCommand command = new SqlCommand(
-                "SELECT CategoryID, CategoryName FROM Categories WHERE UserAccountID = @UserAccountID", conn);
-            command.Parameters.AddWithValue("@UserAccountID", ((Category)entity).UserAccountId);
-            // set selectCommand as selectCategory
-            adapter.SelectCommand = command;
-
-            adapter.Fill(ResultSet, "Categories");
+            //ListCategoryHelper's selectEntity() return SqlDataAdapter
+            ListCategoryHelper categoryList = new ListCategoryHelper();
+            categoryList.SelectEntity(entity).Fill(ResultSet, "Categories");
 
             if (ResultSet.Tables.Count > 0)
             {
