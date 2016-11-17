@@ -30,15 +30,17 @@ namespace PasswordApplication
             {
                 conn.Open();
                 //calling methods to demonstrate sqlCommand capabilities
-                addUserRecord = new SqlCommand("dbo.AddRecord", conn);
-                addUserRecord.CommandType = CommandType.StoredProcedure;
-                addUserRecord.Parameters.Add("@categoryID", SqlDbType.VarChar).Value = category.CategoryID;
-                addUserRecord.Parameters.Add("@id", SqlDbType.VarChar).Value = userRecord.UserName;
-                addUserRecord.Parameters.Add("@pw", SqlDbType.VarChar).Value = userRecord.UserPassword;
-                addUserRecord.Parameters.Add("@note", SqlDbType.VarChar).Value = userRecord.Note;
+                string insertNewRecord = "INSERT INTO UserRecord VALUES(@UserName,@UserPassword,@ServiceName,@Note,@UserAccountID,@CategoryID)";
+                addUserRecord = new SqlCommand(insertNewRecord, conn);
+                addUserRecord.Parameters.AddWithValue("UserName", userRecord.UserName);
+                addUserRecord.Parameters.AddWithValue("UserPassword", userRecord.UserPassword);
+                addUserRecord.Parameters.AddWithValue("ServiceName", "Service_Test"); // We need a new textfield for ServiceName
+                addUserRecord.Parameters.AddWithValue("Note", userRecord.Note);
+                addUserRecord.Parameters.AddWithValue("UserAccountID", 1); // This will be modified in the future.
+                addUserRecord.Parameters.AddWithValue("CategoryID", category.CategoryName); // Need to change to CategoryName
                 addUserRecord.ExecuteNonQuery();
-                
-                if(addUserRecord.ExecuteNonQuery() >= 1)
+
+                if (addUserRecord.ExecuteNonQuery() >= 1)
                 {
                     recordAdded = true;
                 }
