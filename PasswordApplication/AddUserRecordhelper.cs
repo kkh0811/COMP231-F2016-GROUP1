@@ -31,14 +31,14 @@ namespace PasswordApplication
                 conn.Open();
                 //calling methods to demonstrate sqlCommand capabilities
 
-                string insertNewRecord = "INSERT INTO UserRecord VALUES(@UserName,@UserPassword,@ServiceName,@Note,@UserAccountID,@CategoryID)";
+                string insertNewRecord = "INSERT INTO UserRecord VALUES(@UserName,@UserPassword,@ServiceName,@Note,@UserAccountID,@CategoryName)";
                 addUserRecord = new SqlCommand(insertNewRecord, conn);
-                addUserRecord.Parameters.AddWithValue("UserName", userRecord.UserName);
-                addUserRecord.Parameters.AddWithValue("UserPassword", userRecord.UserPassword);
-                addUserRecord.Parameters.AddWithValue("ServiceName", "Service_Test"); // We need a new textfield for ServiceName
-                addUserRecord.Parameters.AddWithValue("Note", userRecord.Note);
-                addUserRecord.Parameters.AddWithValue("UserAccountID", 1); // This will be modified in the future.
-                addUserRecord.Parameters.AddWithValue("CategoryID", category.CategoryName); // Need to change to CategoryName
+                addUserRecord.Parameters.AddWithValue("@UserName", userRecord.UserName);
+                addUserRecord.Parameters.AddWithValue("@UserPassword", userRecord.UserPassword);
+                addUserRecord.Parameters.AddWithValue("@ServiceName", userRecord.ServiceName);
+                addUserRecord.Parameters.AddWithValue("@Note", userRecord.Note);
+                addUserRecord.Parameters.AddWithValue("@UserAccountID", 1); // This will be modified in the future.
+                addUserRecord.Parameters.AddWithValue("@CategoryName", category.CategoryName); // Need to change to CategoryName
 
                 if (addUserRecord.ExecuteNonQuery() > 0)
                 {

@@ -29,6 +29,7 @@ namespace PasswordApplication
         {
             InitializeComponent();
 
+            //this needs to go to a different class helper for handling categories
             string getCategoryName = "SELECT CategoryName FROM Categories WHERE UserAccountID = 1;";
             SqlDataAdapter da = new SqlDataAdapter(getCategoryName, SQLconn.Connect());
 
@@ -48,8 +49,6 @@ namespace PasswordApplication
         private void NewRecordForm_Load(object sender, EventArgs e)
         {
             CategoryOptionComboBox.SelectedIndex = 0;
-
-
         }
         //Event trigger on user pressing cancel
         private void CancelButton_Click(object sender, EventArgs e)
@@ -70,14 +69,22 @@ namespace PasswordApplication
                 AddUserRecordhelper addUserRecordhelper = new AddUserRecordhelper();
                 UserRecord addRecord = new UserRecord();
                 Category category = new Category();
-                category.CategoryID = Convert.ToInt16(CategoryOptionComboBox.SelectedValue);//showing null value?
-                
+                //Gets the Category ID of the selected Category
+                category.CategoryID = Convert.ToInt16(CategoryOptionComboBox.SelectedIndex);
                 //Grab values from user inputs
                 addRecord.UserName = UserNameTextBox.Text;
                 addRecord.UserPassword = PasswordTextBox.Text;
                 addRecord.Note = NoteTextBox.Text;
                 addRecord.ServiceName = ServiceNameTextBox.Text;
-                //addRecord.CategoryID = ;
+                if (category.CategoryID != 0)
+                { 
+                    category.CategoryName = CategoryOptionComboBox.SelectedItem.ToString();
+                }
+                else
+                {
+                    //set empty string if user did not select a category.
+                    category.CategoryName = "";
+                }
 
                 //Pass entities to addUserRecordHelper class
                 addUserRecordhelper.SaveEntity(addRecord,category);
@@ -163,7 +170,7 @@ namespace PasswordApplication
             }
             else
             {
-                errorProvider1.SetError(ServiceNameTextBox, "error");
+                errorProvider1.SetError(ServiceNameTextBox, "Service name has to be minimum 2 characters long and \ncan only use _ @ . or whitespace");
                 return false;
 
             }

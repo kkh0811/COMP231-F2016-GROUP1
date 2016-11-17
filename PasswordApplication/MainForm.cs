@@ -73,7 +73,7 @@ namespace PasswordApplication
             userRecordDataGridView.Columns["RecordID"].Visible = false;
             // Rename columuns
             userRecordDataGridView.Columns[0].HeaderText = "USER NAME";
-            userRecordDataGridView.Columns[1].HeaderText = "PASSWORD";
+            userRecordDataGridView.Columns[1].HeaderText = "User Name";
             userRecordDataGridView.ScrollBars = ScrollBars.Horizontal;
             
         }
