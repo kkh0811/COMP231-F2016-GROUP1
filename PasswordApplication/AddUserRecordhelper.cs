@@ -23,22 +23,24 @@ namespace PasswordApplication
             Category category = (Category)Entity[1];
             //create the SQL command to add user input
             SqlCommand addUserRecord;
-            bool recordAdded;
+            bool recordAdded = false;
 
 
             try
             {
                 conn.Open();
                 //calling methods to demonstrate sqlCommand capabilities
+
+
+
                 addUserRecord = new SqlCommand("dbo.AddRecord", conn);
                 addUserRecord.CommandType = CommandType.StoredProcedure;
                 addUserRecord.Parameters.Add("@categoryID", SqlDbType.VarChar).Value = category.CategoryID;
                 addUserRecord.Parameters.Add("@id", SqlDbType.VarChar).Value = userRecord.UserName;
                 addUserRecord.Parameters.Add("@pw", SqlDbType.VarChar).Value = userRecord.UserPassword;
                 addUserRecord.Parameters.Add("@note", SqlDbType.VarChar).Value = userRecord.Note;
-                addUserRecord.ExecuteNonQuery();
                 
-                if(addUserRecord.ExecuteNonQuery() >= 1)
+                if (addUserRecord.ExecuteNonQuery() > 0)
                 {
                     recordAdded = true;
                 }
