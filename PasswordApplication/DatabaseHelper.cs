@@ -106,12 +106,13 @@ namespace PasswordApplication
         {
             //specify Connection string here
             //SqlConnection conn = new SqlConnection(connectionString);
-            SqlCommand cmd;
+            //SqlCommand cmd;
             //SqlDataAdapter adpt;
 
             //input SQL Commands
             try
             {
+                /*
                 conn.Open();   
                 //calling methods to demonstrate sqlCommand capabilities
                 cmd = new SqlCommand("dbo.AddRecord", conn);
@@ -121,6 +122,7 @@ namespace PasswordApplication
                 cmd.Parameters.Add("@pw", SqlDbType.VarChar).Value = pPassword;
                 cmd.Parameters.Add("@note", SqlDbType.VarChar).Value = pNote;
                 cmd.ExecuteNonQuery();
+                */
             }
             catch (Exception e)
             {
