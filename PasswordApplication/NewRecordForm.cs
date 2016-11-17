@@ -76,7 +76,7 @@ namespace PasswordApplication
                 addRecord.UserName = UserNameTextBox.Text;
                 addRecord.UserPassword = PasswordTextBox.Text;
                 addRecord.Note = NoteTextBox.Text;
-                addRecord.AppName = ServiceNameTextBox.Text;
+                addRecord.ServiceName = ServiceNameTextBox.Text;
                 //addRecord.CategoryID = ;
 
                 //Pass entities to addUserRecordHelper class
