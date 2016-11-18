@@ -15,7 +15,7 @@ namespace PasswordApplication
     /// </summary>
     class AddCategoryHelper : ISave
     {
-        public bool SaveEntity(AbDatabaseEntity Entity)
+        public bool SaveEntity(AbDatabaseEntity[] Entity)
         {
             int successRow;
             bool isInsertSuccess = false;
@@ -24,7 +24,7 @@ namespace PasswordApplication
             SQLServerConnMaker SQLconn = new SQLServerConnMaker();
             SqlConnection conn = SQLconn.Connect();
             //Initial Catrogry entity
-            Category category = (Category)Entity;
+            Category category = (Category)Entity[0];
 
 
             // Create the Insert category command.
