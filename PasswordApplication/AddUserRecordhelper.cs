@@ -13,14 +13,14 @@ namespace PasswordApplication
 {
     class AddUserRecordhelper : ISave
     {
-        public bool SaveEntity(AbDatabaseEntity Entity)
+        public bool SaveEntity(AbDatabaseEntity[] Entity)
         {
             //start the connection string
             SQLServerConnMaker SQLconn = new SQLServerConnMaker();
             //initialize user record values
-            UserRecord userRecord = (UserRecord)Entity;
+            UserRecord userRecord = (UserRecord)Entity[0];
             //initialize user record category
-            UserRecordCategory userRecordCategory = (UserRecordCategory)Entity;
+            UserRecordCategory userRecordCategory = (UserRecordCategory)Entity[0];
 
             //create the SQL command to add user input
             SqlCommand addUserRecord;

@@ -23,6 +23,6 @@ namespace PasswordApplication.Interfaces
     interface ISave
     { 
         //DatabaseEntity can be UserRecord,Category,UserAccount
-        bool SaveEntity(AbDatabaseEntity Entity);
+        bool SaveEntity(params AbDatabaseEntity[] Entity);
     }
 }

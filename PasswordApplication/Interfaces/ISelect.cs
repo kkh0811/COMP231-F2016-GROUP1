@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PasswordApplication.AbstractClass;
 using System.Data.Common;
+using System.Data.SqlClient;
 
 namespace PasswordApplication.Interfaces
 {
@@ -15,6 +16,6 @@ namespace PasswordApplication.Interfaces
     interface ISelect
     {
         //DatabaseEntity can be UserRecord,Category,UserAccount
-        DataAdapter SelectEntity(AbDatabaseEntity Entity);
+        SqlDataAdapter SelectEntity(AbDatabaseEntity Entity);
     }
 }
