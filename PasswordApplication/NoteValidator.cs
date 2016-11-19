@@ -15,13 +15,13 @@ namespace PasswordApplication
     class NoteValidator : IValidation
     {
         //pattern
-        private string pattern = "^([1-zA-Z0-1@.\\s]{1,255})$";
+        private string pattern = "^([a-zA-Z0-1@.,\\s*]{0,255})$";
         Regex regex;
-        UserRecord userRecord;
+        
 
         public bool Validate(string UserInput)
         {
-            userRecord.Note = UserInput;
+           
             regex = new Regex(pattern);
             if (regex.Match(UserInput).Success)
             {

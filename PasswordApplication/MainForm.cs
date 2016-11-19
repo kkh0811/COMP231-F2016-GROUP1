@@ -25,7 +25,8 @@ namespace PasswordApplication
         //User Record ID
         private int userRecordID;
 
-		ViewRecordForm vrf = new ViewRecordForm();
+        //set up sending information to other forms
+        ViewRecordForm vrf = new ViewRecordForm();
         EditRecordForm edf = new EditRecordForm();
         public MainForm()
         {
@@ -48,7 +49,7 @@ namespace PasswordApplication
         private void MainForm_Load(object sender, EventArgs e)
         {
             DisplayUserRecordDataGrid();
-            PopulateCategories();
+            //PopulateCategories();
 
 
         }
@@ -72,7 +73,7 @@ namespace PasswordApplication
             userRecordDataGridView.Columns["RecordID"].Visible = false;
             // Rename columuns
             userRecordDataGridView.Columns[0].HeaderText = "USER NAME";
-            userRecordDataGridView.Columns[1].HeaderText = "PASSWORD";
+            userRecordDataGridView.Columns[1].HeaderText = "User Name";
             userRecordDataGridView.ScrollBars = ScrollBars.Horizontal;
             
         }

@@ -7,28 +7,23 @@ using PasswordApplication.Interfaces;
 using System.Text.RegularExpressions;
 using PasswordApplication.Model;
 
-
 namespace PasswordApplication
 {
     /// <summary>
-    /// Validate userName input.
-    /// Pattern is ?????
+    /// ServiceNameValidator validates that user inputs the appropriate string.
+    /// [a-zA-Z0-9] = can repeat alphabet or letter
+    /// [a-zA-Z0-9\d_@.\s*] allow all alphabets and numbers and _ @ . whitespace
+    /// {1,50}$ = minimum 2 characters to 50 max
+    /// Returns true/false
     /// </summary>
-    class UserNameValidator : IValidation
+    class ServiceNameValidator : IValidation
     {
-        // create pattern to match username
-        //regular expression only allows user to input alphabets or numbers only. Special characters allowed are only _ @ .
-        private string pattern = @"^[a-zA-Z0-9][a-zA-Z0-9\d_@.]{2,29}$";
-        //instantiate Regular Expression
+        private string pattern = @"^[a-zA-Z0-9\d_@.\s*][a-zA-Z0-9\d_@.\s*]{1,30}$";
         Regex regex;
-
+        bool result;
         public bool Validate(string UserInput)
         {
-            //initialize bool variable to false when returning method
-            bool result = false;
-            //create obj regex and pattern is the string pattern
             regex = new Regex(pattern);
-           
             try
             {
                 if (regex.Match(UserInput).Success)

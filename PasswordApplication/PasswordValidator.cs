@@ -11,24 +11,35 @@ namespace PasswordApplication
 {
     class PasswordValidator : IValidation
     {
-        //pattern
-        private string pattern = "^([1-zA-Z0-1@.\\s]{1,255})$";
+        //string pattern to match
+        //starting string has to be number or letter.
+        private string pattern = @"^[a-zA-Z0-9\d!""""#$%()*+,-/:;<>?@[\]^_`{|}~][a-zA-Z0-9\d!""""#$%()*+,-/:;<>?@[\]^_`{|}~]{2,29}$";
+        //instantiate Regular Expression
         Regex regex;
-        UserRecord userRecord;
 
         public bool Validate(string UserInput)
         {
-            userRecord.UserPassword = UserInput;
+            bool result = false;
+            //create obj regex and pattern is the string pattern
             regex = new Regex(pattern);
-            if (regex.Match(UserInput).Success)
-            {
-                return true;
+            try
+            {   //regex matches user input to string
+                if (regex.Match(UserInput).Success)
+                {
+                    result = true;
+                }
+                else
+                {
+                    result = false;
+                }
             }
-            else
+            catch (Exception e)
             {
-                return false;
+                //output the exception error
+                Console.WriteLine(e);
             }
-            throw new NotImplementedException();
+            return result;
+            
         }
     }
 }
