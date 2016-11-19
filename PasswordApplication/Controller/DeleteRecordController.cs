@@ -31,7 +31,6 @@ namespace PasswordApplication.Controller
         {
             //Check if record in Record table,UserRecordCategory is deleted.
             bool isRecordDeleted;
-            bool isRecordCategoryDeleted;
             bool isDeleted = false;
 
             DialogResult result;
@@ -40,14 +39,12 @@ namespace PasswordApplication.Controller
 
             if (result.Equals(DialogResult.OK))
             {
-                //Call DeleteUserCategory and DeleteUserRecord hepler classes
+                //Call DeleteUserRecord hepler classes
                 //Get the RecordId from the click row and send it as the delete record parameter
                 //Remove the dependancy from userRecordCategory table first                  
-                DeleteUserCategoryhelper deleteUserCategory = new DeleteUserCategoryhelper();
-                isRecordCategoryDeleted = deleteUserCategory.DeleteEntity(((UserRecord)entity));  // Cast entity to UserRecord 
                 DeleteUserRecordhelper deleteUserRecord = new DeleteUserRecordhelper();
                 isRecordDeleted = deleteUserRecord.DeleteEntity(((UserRecord)entity));  // Cast entity to UserRecord
-                if (isRecordDeleted && isRecordCategoryDeleted)
+                if (isRecordDeleted)
                 {
                     MessageBox.Show("The record has been deleted.");
                     // display the result,cast view to MainForm and call MainForm update the Datagrid.
