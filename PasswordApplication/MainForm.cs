@@ -109,6 +109,7 @@ namespace PasswordApplication
         //when user click the cell, password and user name will be save to clipboard
         private void CopyPaste_Click(object sender, DataGridViewCellMouseEventArgs e)
         {
+            if (e.ColumnIndex < 0) return;
             //When user click row, it pass the recordID to the userRecordID
             userCurrentClickRow = userRecordDataGridView.CurrentRow;
             userRecordID = (Int32)userCurrentClickRow.Cells[0].Value;

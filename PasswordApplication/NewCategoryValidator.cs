@@ -13,7 +13,7 @@ namespace PasswordApplication
     {
         // create pattern to match category
         //regular expression only allows user to input alphabets,numbers,@,.,_,space only,max length is 30.
-        private string pattern = "^([1-zA-Z0-1@._\\s]{1,30})$";
+        private string pattern = "^[a-zA-Z0-9]+([1-zA-Z0-1@._\\s]{1,30})$";
         //instantiate Regular Expression
         Regex regex;
 
@@ -26,7 +26,7 @@ namespace PasswordApplication
             }
             else
             {
-                MessageBox.Show("Only accept charactor,number, @, ., _, space as category name.");
+                MessageBox.Show("Character name cannot be empty. \nPlease input at least an alphabet,number, @, ., _");
                 return false;
             }
             throw new NotImplementedException();
