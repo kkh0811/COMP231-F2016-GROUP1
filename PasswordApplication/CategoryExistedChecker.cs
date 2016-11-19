@@ -32,7 +32,7 @@ namespace PasswordApplication
                 {
                     if (((Category)entity).CategoryName.ToUpper() == row["CategoryName"].ToString().ToUpper())
                     {
-                        MessageBox.Show("Category name alreay existed.");
+                        MessageBox.Show("Category name already exists.");
                         return true;
                     }
                 }

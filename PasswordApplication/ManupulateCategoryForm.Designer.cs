@@ -50,6 +50,7 @@
             this.CategoryNameTextBox.CausesValidation = false;
             this.CategoryNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CategoryNameTextBox.Location = new System.Drawing.Point(179, 87);
+            this.CategoryNameTextBox.MaxLength = 30;
             this.CategoryNameTextBox.Name = "CategoryNameTextBox";
             this.CategoryNameTextBox.Size = new System.Drawing.Size(178, 26);
             this.CategoryNameTextBox.TabIndex = 1;
@@ -99,7 +100,7 @@
             this.Controls.Add(this.UserNameLabel);
             this.Controls.Add(this.manupulateCategoryLabel);
             this.Name = "ManupulateCategoryForm";
-            this.Text = "ManupulateCategoryForm";
+            this.Text = "Create New Category";
             this.ResumeLayout(false);
             this.PerformLayout();
 

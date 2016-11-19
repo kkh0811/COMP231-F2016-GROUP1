@@ -26,7 +26,7 @@ namespace PasswordApplication
             }
             else
             {
-                MessageBox.Show("Only accept charactor,number, @, ., _, space as category name.");
+                MessageBox.Show("Character name cannot be empty. \nPlease input at least an alphabet,number, @, ., _");
                 return false;
             }
             throw new NotImplementedException();

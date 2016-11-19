@@ -35,7 +35,7 @@ namespace PasswordApplication.Controller
 
             DialogResult result;
             //Confirm if user wants to delete the record
-            result = MessageBox.Show("Do You Want to delete?", "Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            result = MessageBox.Show("Do you want to delete?", "Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
 
             if (result.Equals(DialogResult.OK))
             {
