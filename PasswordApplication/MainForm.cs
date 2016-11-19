@@ -1,4 +1,7 @@
-﻿using System;
+﻿using PasswordApplication.AbstractClass;
+using PasswordApplication.Controller;
+using PasswordApplication.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -49,9 +52,7 @@ namespace PasswordApplication
         private void MainForm_Load(object sender, EventArgs e)
         {
             DisplayUserRecordDataGrid();
-            //PopulateCategories();
-
-
+            PopulateCategories();
         }
 
 
@@ -72,8 +73,8 @@ namespace PasswordApplication
             userRecordDataGridView.Columns["Note"].Visible = false;
             userRecordDataGridView.Columns["RecordID"].Visible = false;
             // Rename columuns
-            userRecordDataGridView.Columns[0].HeaderText = "USER NAME";
-            userRecordDataGridView.Columns[1].HeaderText = "User Name";
+            userRecordDataGridView.Columns[1].HeaderText = "USER NAME";
+            userRecordDataGridView.Columns[2].HeaderText = "PASSWORD";
             userRecordDataGridView.ScrollBars = ScrollBars.Horizontal;
             
         }
@@ -108,6 +109,7 @@ namespace PasswordApplication
         //when user click the cell, password and user name will be save to clipboard
         private void CopyPaste_Click(object sender, DataGridViewCellMouseEventArgs e)
         {
+            if (e.ColumnIndex < 0) return;
             //When user click row, it pass the recordID to the userRecordID
             userCurrentClickRow = userRecordDataGridView.CurrentRow;
             userRecordID = (Int32)userCurrentClickRow.Cells[0].Value;
@@ -182,38 +184,32 @@ namespace PasswordApplication
         //User wants to "Delete" click -- right click meun
         private void deleteTollStripMenuItem_Click(object sender, EventArgs e)
         {
-            DialogResult result;
             if (userRecordID != 0)
-            {   //Confirm if user wants to delete the record
-                result = MessageBox.Show("Do You Want to delete?", "Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-                if (result.Equals(DialogResult.OK))
-                {
-                    //Get the RecordId from the click row and send it as the delete record parameter
-                    DatabaseHelper.deleteRecord(userRecordID);
-                    // display the result
-                    DisplayUserRecordDataGrid();
+            {  
+                    //Instantiate new UserRecord and pass userRecordID to the RecordID property
+                    UserRecord userRecord = new UserRecord();
+                    userRecord.RecordID = userRecordID;
+                    //Call DeleteRecordController to delete the UserRecord
+                    DeleteRecordController deleteController = new DeleteRecordController(this, userRecord);
                     //After delete reset userRecord to 0
-                    userRecordID = 0;
-                }
+                    if (deleteController.DeleteRecord())
+                        userRecordID = 0;
             }
         }
 
         //User wants to "Delete" click -- "Delete" button
         private void DeleteRecordButton_Click(object sender, EventArgs e)
         {
-            DialogResult result;
             if (userRecordID != 0)
-            {   //Confirm if user wants to delete the record
-                result = MessageBox.Show("Do You Want to delete?", "Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-                if (result.Equals(DialogResult.OK))
-                {
-                    //Get the RecordId from the click row and send it as the delete record parameter
-                    DatabaseHelper.deleteRecord(userRecordID);
-                    // display the result
-                    DisplayUserRecordDataGrid();
+            {   
+                    //Instantiate new UserRecord and pass userRecordID to the RecordID property
+                    UserRecord userRecord = new UserRecord();
+                    userRecord.RecordID = userRecordID;
+                    //Call DeleteRecordController to delete the UserRecord
+                    DeleteRecordController deleteController = new DeleteRecordController(this, userRecord);
                     //After delete reset userRecord to 0
-                    userRecordID = 0;
-                }
+                    if (deleteController.DeleteRecord())
+                        userRecordID = 0;
             }
             else
             {
@@ -269,11 +265,16 @@ namespace PasswordApplication
         //Populate Category treeview 
         public void PopulateCategories()
         {
-
             // Query for the user categories. These are the values
             // for the nodes.
             DataSet ResultSet = new DataSet();
-            DatabaseHelper.manupulateCategory(1).Fill(ResultSet, "Categories");
+
+            //Get the UserAccountId, hard code UseAccount = 1, should be change to static class userAccount later.
+            Category category = new Category();
+            category.UserAccountId = 1;
+            //ListCategoryHelper's selectEntity() return SqlDataAdapter
+            ListCategoryHelper categoryList = new ListCategoryHelper();
+            categoryList.SelectEntity(category).Fill(ResultSet, "Categories");
             CategoryTreeView.Nodes[0].Nodes.Clear();
             // Create the second-level nodes.
             if (ResultSet.Tables.Count > 0)
@@ -293,16 +294,20 @@ namespace PasswordApplication
                     // Add the new node to the ChildNodes collection of the parent node. Node[0] is the parent Node.
                     CategoryTreeView.Nodes[0].Nodes.Add(NewNode);
                     //MessageBox.Show(row["CategoryName"].ToString() + "is created.");
-                    //CategoryTreeView.ExpandAll();
+
                 }
             }
-            CategoryTreeView.Update();
+            
+            CategoryTreeView.ExpandAll();
+            CategoryTreeView.Refresh();
         }
 
         private void AddCategoryButton_Click(object sender, EventArgs e)
         {
+            this.Hide();
             ManupulateCategoryForm MCF = new ManupulateCategoryForm();
             MCF.ShowDialog();
+            
         }
 		private void EditRecordButton_Click(object sender, EventArgs e)
         {

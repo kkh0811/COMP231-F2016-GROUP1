@@ -17,9 +17,10 @@ namespace PasswordApplication
     {
         public bool DeleteEntity(AbDatabaseEntity Entity)
         {
+            bool isDeleted;
             //Initial connection maker to make a connection 
             SQLServerConnMaker SQLconn = new SQLServerConnMaker();
-
+            SqlConnection conn = SQLconn.Connect();
             //Initial UserRecord entity
             UserRecord userRecord = (UserRecord)Entity;
             
@@ -27,7 +28,7 @@ namespace PasswordApplication
             // Create the DeleteCommand.
             // Delete record from UserRecord table
             SqlCommand deleteUserRecordCmd;
-            deleteUserRecordCmd = new SqlCommand("DELETE FROM UserRecord WHERE RecordID = @RecordID", SQLconn.Connect());
+            deleteUserRecordCmd = new SqlCommand("DELETE FROM UserRecord WHERE RecordID = @RecordID", conn);
 
 
             // Add the parameters for the DeleteCommand.
@@ -35,19 +36,28 @@ namespace PasswordApplication
 
             try
             {
-                SQLconn.Connect().Open();
-                using (deleteUserRecordCmd) { deleteUserRecordCmd.ExecuteNonQuery(); }
+                conn.Open();
+
+                if (deleteUserRecordCmd.ExecuteNonQuery() >= 1)
+                {
+                    isDeleted = true;
+                }
+                else
+                {
+                    isDeleted = false;
+                }                
             }
             catch (Exception e)
             {
                 //show error in output
                 Console.WriteLine(e.ToString());
+                isDeleted = false;
             }
             finally
             {
-                SQLconn.Connect().Close();
+                conn.Close();
             }
-            throw new NotImplementedException();
+            return isDeleted;
         }
     }
 }

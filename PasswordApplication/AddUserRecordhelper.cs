@@ -13,54 +13,41 @@ namespace PasswordApplication
 {
     class AddUserRecordhelper : ISave
     {
-        public bool SaveEntity(params AbDatabaseEntity[] Entity)
+        public bool SaveEntity(AbDatabaseEntity[] Entity)
         {
             //start the connection string
             SQLServerConnMaker SQLconn = new SQLServerConnMaker();
-            SqlConnection conn = SQLconn.Connect();
-            //initialize user record  and category values
+            //initialize user record values
             UserRecord userRecord = (UserRecord)Entity[0];
-            Category category = (Category)Entity[1];
+            //initialize user record category
+            UserRecordCategory userRecordCategory = (UserRecordCategory)Entity[0];
+
             //create the SQL command to add user input
             SqlCommand addUserRecord;
-            bool recordAdded = false;
-
 
             try
             {
-                conn.Open();
+                SQLconn.Connect().Open();
                 //calling methods to demonstrate sqlCommand capabilities
-
-                string insertNewRecord = "INSERT INTO UserRecord VALUES(@UserName,@UserPassword,@ServiceName,@Note,@UserAccountID,@CategoryName)";
-                addUserRecord = new SqlCommand(insertNewRecord, conn);
-                addUserRecord.Parameters.AddWithValue("@UserName", userRecord.UserName);
-                addUserRecord.Parameters.AddWithValue("@UserPassword", userRecord.UserPassword);
-                addUserRecord.Parameters.AddWithValue("@ServiceName", userRecord.ServiceName);
-                addUserRecord.Parameters.AddWithValue("@Note", userRecord.Note);
-                addUserRecord.Parameters.AddWithValue("@UserAccountID", 1); // This will be modified in the future.
-                addUserRecord.Parameters.AddWithValue("@CategoryName", category.CategoryName); // Need to change to CategoryName
-
-                if (addUserRecord.ExecuteNonQuery() > 0)
-                {
-                    recordAdded = true;
-                }
-                else
-                {
-                    recordAdded = false;
-                }
-
+                addUserRecord = new SqlCommand("dbo.AddRecord", SQLconn.Connect());
+                addUserRecord.CommandType = CommandType.StoredProcedure;
+                
+                //addUserRecord.Parameters.Add("@categoryName", SqlDbType.VarChar).Value = 
+                addUserRecord.Parameters.Add("@id", SqlDbType.VarChar).Value = userRecord.UserName;
+                addUserRecord.Parameters.Add("@pw", SqlDbType.VarChar).Value = userRecord.UserPassword;
+                addUserRecord.Parameters.Add("@note", SqlDbType.VarChar).Value = userRecord.Note;
+                addUserRecord.ExecuteNonQuery();
             }
             catch (Exception e)
             {
                 //show error in output
                 Console.WriteLine(e.ToString());
-                recordAdded = false;
             }
             finally
             {
-                conn.Close();
+                SQLconn.Connect().Close();
             }
-            return recordAdded;
+            throw new NotImplementedException();
         }
     }
 }

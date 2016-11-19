@@ -17,8 +17,8 @@ namespace PasswordApplication
     class UserNameValidator : IValidation
     {
         // create pattern to match username
-        //regular expression only allows user to input alphabets or numbers only. Special characters allowed are only _ @ .
-        private string pattern = @"^[a-zA-Z0-9][a-zA-Z0-9\d_@.]{2,29}$";
+        //regular expression only allows user to input alphabets or numbers only.
+        private string pattern = "^[a-z|A-Z|]+[a-z|A-Z|0-9]*";
         //instantiate Regular Expression
         Regex regex;
 

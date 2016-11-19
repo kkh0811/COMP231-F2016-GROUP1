@@ -16,5 +16,8 @@ namespace PasswordApplication.Model
 
         //CategoryName in Categories table
         public string CategoryName { get; set; }
+
+        //UserAccountId in UserAccount table
+        public int UserAccountId { get; set; }
     }
 }
