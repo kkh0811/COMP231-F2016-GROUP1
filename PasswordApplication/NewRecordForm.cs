@@ -149,24 +149,11 @@ namespace PasswordApplication
                 errorProvider1.SetError(VerifyPasswordTextBox, "The passwords do not match.Please enter them again.");
                 return false;
             }
-            //validate note text box
-            if (nv.Validate(NoteTextBox.Text) == true)
-            {
-                //correct validation
-                errorProvider1.SetError(NoteTextBox, "");
-                
-            }
-            else
-            {
-                //incorrect validation
-                errorProvider1.SetError(NoteTextBox, "Please don't put in any of the following characters ‘, \\ * & ; - '");
-                return false;
-            }
             //validate service name text box
-            if(snv.Validate(ServiceNameTextBox.Text) == true)
+            if (snv.Validate(ServiceNameTextBox.Text) == true)
             {
                 errorProvider1.SetError(ServiceNameTextBox, "");
-                return true;
+                
             }
             else
             {
@@ -174,6 +161,20 @@ namespace PasswordApplication
                 return false;
 
             }
+            //validate note text box
+            if (nv.Validate(NoteTextBox.Text) == true)
+            {
+                //correct validation
+                errorProvider1.SetError(NoteTextBox, "");
+                return true;
+            }
+            else
+            {
+                //incorrect validation
+                errorProvider1.SetError(NoteTextBox, "Please don't put in any of the following characters ‘, \\ * & ; - '");
+                return false;
+            }
+
         }
         //Method to show masked characters when check box is selected
         private void ShowPasswordChkBox_CheckedChanged_1(object sender, EventArgs e)

@@ -18,7 +18,7 @@ namespace PasswordApplication
     /// </summary>
     class ServiceNameValidator : IValidation
     {
-        private string pattern = @"^[a-zA-Z0-9][a-zA-Z0-9\d_@.\s*]{1,50}$";
+        private string pattern = @"^[a-zA-Z0-9\d_@.\s*][a-zA-Z0-9\d_@.\s*]{1,30}$";
         Regex regex;
         bool result;
         public bool Validate(string UserInput)

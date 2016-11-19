@@ -162,6 +162,7 @@
             this.UserNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UserNameTextBox.Location = new System.Drawing.Point(211, 171);
             this.UserNameTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.UserNameTextBox.MaxLength = 29;
             this.UserNameTextBox.Name = "UserNameTextBox";
             this.UserNameTextBox.Size = new System.Drawing.Size(236, 30);
             this.UserNameTextBox.TabIndex = 9;
@@ -171,6 +172,7 @@
             this.NoteTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NoteTextBox.Location = new System.Drawing.Point(211, 379);
             this.NoteTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.NoteTextBox.MaxLength = 255;
             this.NoteTextBox.Multiline = true;
             this.NoteTextBox.Name = "NoteTextBox";
             this.NoteTextBox.Size = new System.Drawing.Size(427, 155);
@@ -182,6 +184,7 @@
             this.PasswordTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PasswordTextBox.Location = new System.Drawing.Point(211, 224);
             this.PasswordTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.PasswordTextBox.MaxLength = 29;
             this.PasswordTextBox.Name = "PasswordTextBox";
             this.PasswordTextBox.PasswordChar = '*';
             this.PasswordTextBox.Size = new System.Drawing.Size(236, 30);
@@ -193,6 +196,7 @@
             this.VerifyPasswordTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.VerifyPasswordTextBox.Location = new System.Drawing.Point(209, 278);
             this.VerifyPasswordTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.VerifyPasswordTextBox.MaxLength = 29;
             this.VerifyPasswordTextBox.Name = "VerifyPasswordTextBox";
             this.VerifyPasswordTextBox.PasswordChar = '*';
             this.VerifyPasswordTextBox.Size = new System.Drawing.Size(237, 30);
@@ -241,6 +245,7 @@
             this.ServiceNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ServiceNameTextBox.Location = new System.Drawing.Point(209, 324);
             this.ServiceNameTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.ServiceNameTextBox.MaxLength = 30;
             this.ServiceNameTextBox.Name = "ServiceNameTextBox";
             this.ServiceNameTextBox.Size = new System.Drawing.Size(237, 30);
             this.ServiceNameTextBox.TabIndex = 12;
