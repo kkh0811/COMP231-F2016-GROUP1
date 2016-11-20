@@ -12,7 +12,8 @@ namespace PasswordApplication
     class PasswordValidator : IValidation
     {
         //string pattern to match
-        private string pattern = "^([1-zA-Z0-1@.\\s]{1,255})$";
+        //starting string has to be number or letter.
+        private string pattern = @"^[a-zA-Z0-9\d!""""#$%()*+,-/:;<>?@[\]^_`{|}~][a-zA-Z0-9\d!""""#$%()*+,-/:;<>?@[\]^_`{|}~]{2,29}$";
         //instantiate Regular Expression
         Regex regex;
 
@@ -22,7 +23,7 @@ namespace PasswordApplication
             //create obj regex and pattern is the string pattern
             regex = new Regex(pattern);
             try
-            {
+            {   //regex matches user input to string
                 if (regex.Match(UserInput).Success)
                 {
                     result = true;
