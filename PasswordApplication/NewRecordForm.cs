@@ -113,7 +113,6 @@ namespace PasswordApplication
             UserNameValidator unv = new UserNameValidator();
             PasswordValidator pv = new PasswordValidator();
             NoteValidator nv = new NoteValidator();
-            CategoryValidator cv = new CategoryValidator();
             ServiceNameValidator snv = new ServiceNameValidator();
 
             errorProvider1.Clear();
