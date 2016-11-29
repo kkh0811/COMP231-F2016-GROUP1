@@ -31,6 +31,10 @@ namespace PasswordApplication
         //set up sending information to other forms
         ViewRecordForm vrf = new ViewRecordForm();
         EditRecordForm edf = new EditRecordForm();
+
+        //The category Id and Name the user is selected
+        private int selectedCategoryID;
+        private string selectedCategoryName;
         public MainForm()
         {
             InitializeComponent();
@@ -326,6 +330,20 @@ namespace PasswordApplication
             {
                 MessageBox.Show("Please select a record first.");
 
+            }
+        }
+
+        //After user click the Node, save the corresponding categoryId and categoryName to selectCategoryId
+        private void CategoryTreeView_NodeMouseClick_1(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Node.Tag != null)
+            {
+                if ((int)e.Node.Tag != 11000001)
+                {
+                    selectedCategoryID = (int)e.Node.Tag;
+                    selectedCategoryName = e.Node.Name;
+                    MessageBox.Show(selectedCategoryID.ToString() + " " + selectedCategoryName);
+                }
             }
         }
     }
