@@ -40,7 +40,7 @@ namespace PasswordApplication.Controller
 
             DialogResult result;
             //Confirm if user wants to delete the record
-            result = MessageBox.Show("Do You Want to delete?", "Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            result = MessageBox.Show("Do you want to delete?", "Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
 
             if (result.Equals(DialogResult.OK))
             {
@@ -48,7 +48,7 @@ namespace PasswordApplication.Controller
                 //Remove category name from Categories table
                 //Update the category name to empty string in User Record table 
                 updateHelper = new UpdateUserRecord_categoryHelper();
-                isUserRecordUpdated = deleteHelper.DeleteEntity(entity);  // Cast entity to UserRecord 
+                isUserRecordUpdated = updateHelper.EditEntity(entity);  // Cast entity to UserRecord 
                 deleteHelper = new DeleteCategoryHelper();
                 isCategoryDeleted = deleteHelper.DeleteEntity(entity);  // Cast entity to UserRecord
                 if (isUserRecordUpdated && isCategoryDeleted)
@@ -56,6 +56,7 @@ namespace PasswordApplication.Controller
                     MessageBox.Show("The Category has been deleted.");
                     // display the result,cast view to MainForm and call MainForm update the Datagrid.
                     ((MainForm)view).DisplayUserRecordDataGrid();
+                    ((MainForm)view).PopulateCategories();
                     isDeleted = true;
                 }
                 else

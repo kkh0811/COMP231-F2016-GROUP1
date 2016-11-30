@@ -341,9 +341,30 @@ namespace PasswordApplication
                 if ((int)e.Node.Tag != 11000001)
                 {
                     selectedCategoryID = (int)e.Node.Tag;
-                    selectedCategoryName = e.Node.Name;
-                    MessageBox.Show(selectedCategoryID.ToString() + " " + selectedCategoryName);
+                    selectedCategoryName = e.Node.Text;
                 }
+            }
+        }
+
+        //When user click "Delete category button", trigger the DeleteCategoryController
+        private void DeleteCategoryButton_Click(object sender, EventArgs e)
+        {
+            if (selectedCategoryID != 0)
+            {
+                //Instantiate new Category and pass CategoryID to the categoryName property
+                Category category = new Category();
+                category.CategoryID= selectedCategoryID;
+                category.CategoryName = selectedCategoryName;
+                //Call DeleteCategoryController to delete the Category
+                DeleteCategoryController deleteController = new DeleteCategoryController(this, category);
+                //After delete reset userRecord to 0
+                if (deleteController.DeleteCategory())
+                    selectedCategoryID = 0;
+            }
+            else
+            {
+                MessageBox.Show("Please select a category.");
+                return;
             }
         }
     }

@@ -137,6 +137,7 @@
             this.DeleteCategoryButton.TabIndex = 2;
             this.DeleteCategoryButton.Text = "Delete Category";
             this.DeleteCategoryButton.UseVisualStyleBackColor = false;
+            this.DeleteCategoryButton.Click += new System.EventHandler(this.DeleteCategoryButton_Click);
             // 
             // EditCategoetButton
             // 
