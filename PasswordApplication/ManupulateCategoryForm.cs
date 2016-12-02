@@ -14,6 +14,13 @@ namespace PasswordApplication
 {
     public partial class ManupulateCategoryForm : Form
     {
+        string methodCall;
+
+        //Set the controller call in runtime (EditController or AddController)
+        public void setMethodCall(string method)
+        {
+            methodCall = method;
+        }
         public ManupulateCategoryForm()
         {
             InitializeComponent();
@@ -34,6 +41,11 @@ namespace PasswordApplication
             category.CategoryName = CategoryNameTextBox.Text.Trim();
             category.UserAccountId = 1;
 
+            if (methodCall == "Edit")
+            {
+                //Call EditCategoryController
+                return;
+            }
             //Instantiate AddCategoryController 
             AddCategoryController controller = new AddCategoryController(this,category);
             if (controller.AddRecord())

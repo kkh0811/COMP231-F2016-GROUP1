@@ -153,6 +153,7 @@
             this.EditCategoetButton.TabIndex = 1;
             this.EditCategoetButton.Text = "Edit Category";
             this.EditCategoetButton.UseVisualStyleBackColor = false;
+            this.EditCategoetButton.Click += new System.EventHandler(this.EditCategoetButton_Click);
             // 
             // AddCategoryButton
             // 

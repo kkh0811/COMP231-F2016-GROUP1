@@ -367,5 +367,29 @@ namespace PasswordApplication
                 return;
             }
         }
+
+        private void EditCategoetButton_Click(object sender, EventArgs e)
+        {
+            if (selectedCategoryID != 0)
+            {
+                //Instantiate new Category and pass CategoryID to the categoryName property
+                Category category = new Category();
+                category.CategoryID = selectedCategoryID;
+                category.CategoryName = selectedCategoryName;
+                this.Hide();
+                ManupulateCategoryForm MCF = new ManupulateCategoryForm();
+                MCF.Text = "Edit Category";
+                //Set the controller to be call is EditController
+                MCF.setMethodCall("Edit");
+                MCF.CategoryNameTextBox.Text = selectedCategoryName;
+                MCF.manupulateCategoryLabel.Text = "Edit Category Name:";
+                MCF.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Please select a category.");
+                return;
+            }
+        }
     }
 }
