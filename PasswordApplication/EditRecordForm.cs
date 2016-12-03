@@ -7,124 +7,108 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PasswordApplication.Model;
+using PasswordApplication.AbstractClass;
+using PasswordApplication.Interfaces;
+using PasswordApplication.Controller;
 
 namespace PasswordApplication
 {
     public partial class EditRecordForm : Form
     {   //instantiate objs
-        DatabaseHelper updateDH = new DatabaseHelper();
+        
+        UserNameValidator unv = new UserNameValidator();
+        PasswordValidator pv = new PasswordValidator();
+        NoteValidator nv = new NoteValidator();
+        //UserRecord editUserRecord = new UserRecord();
+        Category selectedCategory = new Category();
+        ServiceNameValidator snv = new ServiceNameValidator();
+        EditUserRecordHelper editUserRecordHelper = new EditUserRecordHelper();
 
-        //intialize variables
-        private int selectedRecordID;
-        private string selectedCategory;
-        private string selectedUserName;
-        private string selectedPassword;
-        private string selectedNote;
-        //set the accessors
-        public int GrabRecordID
-        {
-            get { return selectedRecordID; }
-            set { selectedRecordID = value; }
-        }
-        public string EditUserName
-        {
-            get { return selectedUserName; }
-            set { selectedUserName = value; }
-        }
-        public string EditCategory
-        {
-            get { return selectedCategory; }
-            set { selectedCategory = value; }
-        }
-        public string EditPassword
-        {
-            get { return selectedPassword; }
-            set { selectedPassword = value; }
-        }
-        public string EditNote
-        {
-            get { return selectedNote; }
-            set { selectedNote = value; }
-        }
+
+
+
         public EditRecordForm()
         {
             InitializeComponent();
+            
         }
 
         private void EditRecordForm_Load(object sender, EventArgs e)
         {
-            //on form load, display information from view record form in editable textboxes.
-            UserNameTextBox.Text = EditUserName;
-            PasswordTextBox.Text = EditPassword;
-            CategoryOptionComboBox.Text = EditCategory;
-            NoteTextBox.Text = EditNote;
+            UserRecord editUserRecord = new UserRecord();
+            //on form load, display information from UserRecord form in editable text boxes.
+            UserNameTextBox.Text = editUserRecord.UserName; //editUserRecord.UserName;
+            //editUserRecord.UserPassword= PasswordTextBox.Text;
+            //editUserRecord.CategoryName = CategoryOptionComboBox.Text;
+            //editUserRecord.Note = NoteTextBox.Text;
+
         }
         private bool ValidatingEditRecord()
         {
-            //instantiating objects
-            Validation userName = new Validation();
-            Validation password = new Validation();
-            Validation verifyPassword = new Validation();
-            Validation verifyCategory = new Validation();
-            Validation verifyNote = new Validation();
-            userName.SUserName = UserNameTextBox.Text;
-            password.SPassword = PasswordTextBox.Text;
-            verifyPassword.SVerifyPassword = VerifyPasswordTextBox.Text;
-            verifyPassword.SPassword = PasswordTextBox.Text;
-            verifyCategory.SCategory = CategoryOptionComboBox.Text;
-            verifyNote.SNote = NoteTextBox.Text;
-
-            //if wrong validation, show error message
-            while (true)
+            errorProvider.Clear();
+            //validate username text box
+            if (unv.Validate(UserNameTextBox.Text) == true)
             {
-                if (!userName.ValidateUserName())
-                {
-                    errorProvider.SetError(UserNameTextBox, "Please enter username in alphabers and numbers only");
-                    return false;
-                }
-                else
-                {
-                    errorProvider.SetError(UserNameTextBox, "");
-                }
-                if (!password.ValidatePassword())
-                {
-                    errorProvider.SetError(PasswordTextBox, "The password cannot contain any of the following: ‘,\\*&amp;$&lt;&gt;");
-                    return false;
-                }
-                else
-                {
-                    errorProvider.SetError(PasswordTextBox, "");
-                }
-                if (!verifyPassword.VerifyPassword())
-                {
-                    errorProvider.SetError(VerifyPasswordTextBox, "The passwords do not match.Please enter them again.");
-                    return false;
-                }
-                else
-                {
-                    errorProvider.SetError(VerifyPasswordTextBox, "");
-
-                }
-                if (!verifyCategory.VerifyCategory())
-                {
-                    errorProvider.SetError(CategoryOptionComboBox, "Please select a category");
-                    return false;
-                }
-                else
-                {
-                    errorProvider.SetError(CategoryOptionComboBox, "");
-                }
-                if (!verifyNote.VerifyNote())
-                {
-                    errorProvider.SetError(NoteTextBox, "Please don't put in any of the following characters ‘,\\*&amp;$&lt;&gt;");
-                    return false;
-                }
-                else
-                {
-                    errorProvider.SetError(NoteTextBox, "");
-                    return true;
-                }
+                //validation for username is correct
+                errorProvider.SetError(UserNameTextBox, "");
             }
+            else
+            {
+                //validation for username is incorrect
+                errorProvider.SetError(UserNameTextBox, "Please enter username in alphabets and numbers. Email format is allowed.");
+                return false;
+            }
+            //validate password text box
+            if (pv.Validate(PasswordTextBox.Text) == true)
+            {
+                //validation for password is correct
+                errorProvider.SetError(PasswordTextBox, "");
+            }
+            else
+            {
+                //validation is incorrect
+                errorProvider.SetError(PasswordTextBox, "Please make sure your password has minimum two characters, at least one number and letter. \nCannot contain the following special characters:" +
+                    " & ' . OR ");
+                return false;
+
+            }
+            //validate password verify text box
+            if (PasswordTextBox.Text == VerifyPasswordTextBox.Text)
+            {
+                //validation for same password is correct
+                errorProvider.SetError(VerifyPasswordTextBox, "");
+            }
+            else
+            {
+                //validation for same password is incorrect
+                errorProvider.SetError(VerifyPasswordTextBox, "The passwords do not match.Please enter them again.");
+                return false;
+            }
+            //validate service name text box
+            if (snv.Validate(ServiceNameTextBox.Text) == true)
+            {
+                errorProvider.SetError(ServiceNameTextBox, "");
+            }
+            else
+            {
+                errorProvider.SetError(ServiceNameTextBox, "Service name has to be minimum 2 characters long and \ncan only use _ @ . or whitespace");
+                return false;
+            }
+            //validate note text box
+            if (nv.Validate(NoteTextBox.Text) == true)
+            {
+                //correct validation
+                errorProvider.SetError(NoteTextBox, "");
+                return true;
+            }
+            else
+            {
+                //incorrect validation
+                errorProvider.SetError(NoteTextBox, "Please don't put in any of the following characters ‘, \\ * & ; - '");
+                return false;
+            }
+
         }
 
 
@@ -147,16 +131,26 @@ namespace PasswordApplication
 
         private void SaveNewRecordButton_Click(object sender, EventArgs e)
         {
+            UserRecord editUserRecord = new UserRecord();
             if (ValidatingEditRecord() == true)
             {
-                //set info to database helper to update db
-                updateDH.PassUserName = UserNameTextBox.Text;
-                updateDH.PassPassword = PasswordTextBox.Text;
-                updateDH.PassNote = NoteTextBox.Text;
-                updateDH.PassRecordID = selectedRecordID;
-                //not sure if we pass the string value to db or not
-                //updateDH.PassCategory = CategoryOptionComboBox.SelectedText.ToString();
-                updateDH.UpdateRecord();
+                //grab category ID of selected value
+                selectedCategory.CategoryID = Convert.ToInt16(CategoryOptionComboBox.SelectedIndex);
+                //grab the text box values
+                editUserRecord.UserName = UserNameTextBox.Text;
+                editUserRecord.UserPassword = PasswordTextBox.Text;
+                editUserRecord.ServiceName = ServiceNameTextBox.Text;
+                if (selectedCategory.CategoryID != 0)
+                {
+                    selectedCategory.CategoryName = CategoryOptionComboBox.SelectedItem.ToString();
+                }
+                else
+                {
+                    selectedCategory.CategoryName = "";
+                }
+                //send information to EditUserRecordHelper class
+                editUserRecordHelper.EditEntity(editUserRecord, selectedCategory);
+                //display message box that record has been updated
                 MessageBox.Show("Record has been updated.");
                 this.Hide();
                 MainForm mainForm = new MainForm();
@@ -165,11 +159,12 @@ namespace PasswordApplication
             }
             else
             {
-                MessageBox.Show("Please enter the correct information before sending.");
+                //if validation fails, show the message box
+                MessageBox.Show("Please enter the correct information and try again.", "Edit User Record", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            
+
         }
 
         private void CancelButton_Click(object sender, EventArgs e)

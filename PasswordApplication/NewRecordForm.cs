@@ -18,14 +18,15 @@ namespace PasswordApplication
     {
         //instantiate objects to call classes
         MainForm mainForm = new MainForm();
-        Validation validate = new Validation();
-        DatabaseHelper dh = new DatabaseHelper();
 
         UserNameValidator unv = new UserNameValidator();
         PasswordValidator pv = new PasswordValidator();
         NoteValidator nv = new NoteValidator();
-        UserRecord userRecord = new UserRecord();
-        
+        ServiceNameValidator snv = new ServiceNameValidator();
+        AddUserRecordhelper addUserRecordhelper = new AddUserRecordhelper();
+        UserRecord addRecord = new UserRecord();
+        Category category = new Category();
+
 
         SQLServerConnMaker SQLconn = new SQLServerConnMaker();
         //private DataViewManager dsView;
@@ -71,10 +72,6 @@ namespace PasswordApplication
             if (validating() == true)
             {
                 //pass information to DB
-                //instantiate AddUserRecordHelper, UserRecord, Category
-                AddUserRecordhelper addUserRecordhelper = new AddUserRecordhelper();
-                UserRecord addRecord = new UserRecord();
-                Category category = new Category();
                 //Gets the Category ID of the selected Category
                 category.CategoryID = Convert.ToInt16(CategoryOptionComboBox.SelectedIndex);
                 //Grab values from user inputs
@@ -109,12 +106,6 @@ namespace PasswordApplication
         }
         private bool validating()
         {   
-            //instantiate validator classes
-            UserNameValidator unv = new UserNameValidator();
-            PasswordValidator pv = new PasswordValidator();
-            NoteValidator nv = new NoteValidator();
-            ServiceNameValidator snv = new ServiceNameValidator();
-
             errorProvider1.Clear();
             //validate username text box
             if (unv.Validate(UserNameTextBox.Text) == true)

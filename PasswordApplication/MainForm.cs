@@ -29,6 +29,7 @@ namespace PasswordApplication
         private int userRecordID;
 
         //set up sending information to other forms
+
         ViewRecordForm vrf = new ViewRecordForm();
         EditRecordForm edf = new EditRecordForm();
         public MainForm()
@@ -310,14 +311,16 @@ namespace PasswordApplication
             
         }
 		private void EditRecordButton_Click(object sender, EventArgs e)
-        {
-
+        {        
             try
-            {   
-				edf.GrabRecordID = (Int32)userRecordDataGridView.CurrentRow.Cells[0].Value;
-                edf.EditUserName = this.userRecordDataGridView.CurrentRow.Cells[1].Value.ToString();
-                edf.EditPassword = this.userRecordDataGridView.CurrentRow.Cells[2].Value.ToString();
-                edf.EditNote = this.userRecordDataGridView.CurrentRow.Cells[3].Value.ToString();
+            {
+                ////store selected values from the data grid into the userRecord.
+                //userRecord.RecordID = (Int32)userRecordDataGridView.CurrentRow.Cells[0].Value;
+                //userRecord.UserName = this.userRecordDataGridView.CurrentRow.Cells[1].Value.ToString();
+                //Console.WriteLine("I have stored Username into userRecord");
+                //userRecord.UserPassword = this.userRecordDataGridView.CurrentRow.Cells[2].Value.ToString();
+                //userRecord.Note = this.userRecordDataGridView.CurrentRow.Cells[3].Value.ToString();
+                //userRecord.ServiceName = this.userRecordDataGridView.CurrentRow.Cells[4].ToString();
                 edf.Show();
                 this.Hide();
             }
@@ -325,7 +328,6 @@ namespace PasswordApplication
             catch
             {
                 MessageBox.Show("Please select a record first.");
-
             }
         }
     }

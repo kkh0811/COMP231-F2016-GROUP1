@@ -52,22 +52,22 @@ namespace PasswordApplication
         {
             //display the selected information
             //get information from DB and show the necessary information
-            UserNameTextBox.Text = pUserName;
-            PasswordTextBox.Text = pPassword;
-            NoteTextBox.Text = pNote;
+            //UserNameTextBox.Text = pUserName;
+            //PasswordTextBox.Text = pPassword;
+            //NoteTextBox.Text = pNote;
 
         }
         private void EditRecordButton_Click(object sender, EventArgs e)
         {
             //open edit records form
-            EditRecordForm erf = new EditRecordForm();
-            erf.GrabRecordID = pRecordID;
-            erf.EditUserName = pUserName;
-            erf.EditCategory = pCategory;
-            erf.EditPassword = pPassword;
-            erf.EditNote = pNote;
-            erf.Show();
-            this.Hide();
+            //EditRecordForm erf = new EditRecordForm();
+            //erf.GrabRecordID = pRecordID;
+            //erf.EditUserName = pUserName;
+            //erf.EditCategory = pCategory;
+            //erf.EditPassword = pPassword;
+            //erf.EditNote = pNote;
+            //erf.Show();
+            //this.Hide();
         }
 
         private void OkButton_Click(object sender, EventArgs e)
@@ -76,6 +76,20 @@ namespace PasswordApplication
             this.Hide();
             MainForm mainForm = new MainForm();
             mainForm.Show();
+        }
+
+        private void ChkBoxShow_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ChkBoxShow.Checked == true)
+            {
+                PasswordTextBox.PasswordChar = '\0';
+               // VerifyPasswordTextBox.PasswordChar = '\0';
+            }
+            else
+            {
+                PasswordTextBox.PasswordChar = '*';
+                //VerifyPasswordTextBox.PasswordChar = '*';
+            }
         }
     }
 }
