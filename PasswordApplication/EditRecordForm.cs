@@ -12,21 +12,18 @@ using PasswordApplication.AbstractClass;
 using PasswordApplication.Interfaces;
 using PasswordApplication.Controller;
 
+
 namespace PasswordApplication
 {
     public partial class EditRecordForm : Form
-    {   //instantiate objs
-        
+    {   //instantiate objs        
         UserNameValidator unv = new UserNameValidator();
         PasswordValidator pv = new PasswordValidator();
         NoteValidator nv = new NoteValidator();
-        //UserRecord editUserRecord = new UserRecord();
+        UserRecord editUserRecord = new UserRecord();
         Category selectedCategory = new Category();
         ServiceNameValidator snv = new ServiceNameValidator();
-        EditUserRecordHelper editUserRecordHelper = new EditUserRecordHelper();
-
-
-
+        ListCategoryHelper listCategory = new ListCategoryHelper();
 
         public EditRecordForm()
         {
@@ -36,19 +33,30 @@ namespace PasswordApplication
 
         private void EditRecordForm_Load(object sender, EventArgs e)
         {
-            UserRecord editUserRecord = new UserRecord();
-            //on form load, display information from UserRecord form in editable text boxes.
-            UserNameTextBox.Text = editUserRecord.UserName; //editUserRecord.UserName;
-            //editUserRecord.UserPassword= PasswordTextBox.Text;
-            //editUserRecord.CategoryName = CategoryOptionComboBox.Text;
-            //editUserRecord.Note = NoteTextBox.Text;
-
+            
+            UserRecord userRecord = new UserRecord();
+            UserNameTextBox.Text = userRecord.UserName;
+            Category category = new Category();
+            DataSet dataSet = new DataSet();
+            category.UserAccountId = 1;
+            //on form load, show the data from selected record in respective text box fields
+            listCategory.SelectEntity(category).Fill(dataSet,"Categories");
+            foreach (DataRow row in dataSet.Tables[0].Rows)
+            {
+                CategoryOptionComboBox.Text = row["CategoryName"].ToString();
+            }
         }
+        
         private bool ValidatingEditRecord()
         {
+            editUserRecord.UserName = UserNameTextBox.Text;
+            editUserRecord.UserPassword = PasswordTextBox.Text;
+            editUserRecord.ServiceName = ServiceNameTextBox.Text;
+            editUserRecord.Note = NoteTextBox.Text;
+            EditUserRecordController controller = new EditUserRecordController(this,editUserRecord);
             errorProvider.Clear();
             //validate username text box
-            if (unv.Validate(UserNameTextBox.Text) == true)
+            if (controller.EditUserName() == true)
             {
                 //validation for username is correct
                 errorProvider.SetError(UserNameTextBox, "");
@@ -60,7 +68,7 @@ namespace PasswordApplication
                 return false;
             }
             //validate password text box
-            if (pv.Validate(PasswordTextBox.Text) == true)
+            if (controller.EditPassword() == true)
             {
                 //validation for password is correct
                 errorProvider.SetError(PasswordTextBox, "");
@@ -86,7 +94,7 @@ namespace PasswordApplication
                 return false;
             }
             //validate service name text box
-            if (snv.Validate(ServiceNameTextBox.Text) == true)
+            if (controller.EditServiceName() == true)
             {
                 errorProvider.SetError(ServiceNameTextBox, "");
             }
@@ -96,7 +104,7 @@ namespace PasswordApplication
                 return false;
             }
             //validate note text box
-            if (nv.Validate(NoteTextBox.Text) == true)
+            if (controller.EditNote() == true)
             {
                 //correct validation
                 errorProvider.SetError(NoteTextBox, "");
@@ -110,9 +118,6 @@ namespace PasswordApplication
             }
 
         }
-
-
-
         private void ShowPasswordChkBox_CheckedChanged(object sender, EventArgs e)
         {
             //check if user check to show password or not and display/no display.
@@ -128,10 +133,8 @@ namespace PasswordApplication
 
             }
         }
-
         private void SaveNewRecordButton_Click(object sender, EventArgs e)
         {
-            UserRecord editUserRecord = new UserRecord();
             if (ValidatingEditRecord() == true)
             {
                 //grab category ID of selected value
@@ -148,9 +151,9 @@ namespace PasswordApplication
                 {
                     selectedCategory.CategoryName = "";
                 }
-                //send information to EditUserRecordHelper class
-                editUserRecordHelper.EditEntity(editUserRecord, selectedCategory);
-                //display message box that record has been updated
+                
+                EditUserRecordController controller = new EditUserRecordController(this,editUserRecord,selectedCategory);
+                controller.UpdateRecord();
                 MessageBox.Show("Record has been updated.");
                 this.Hide();
                 MainForm mainForm = new MainForm();
@@ -169,6 +172,7 @@ namespace PasswordApplication
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
+            this.Dispose();
             this.Close();
             MainForm mainForm = new MainForm();
             mainForm.Show();

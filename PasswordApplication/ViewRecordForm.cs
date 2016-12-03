@@ -52,9 +52,9 @@ namespace PasswordApplication
         {
             //display the selected information
             //get information from DB and show the necessary information
-            //UserNameTextBox.Text = pUserName;
-            //PasswordTextBox.Text = pPassword;
-            //NoteTextBox.Text = pNote;
+            UserNameTextBox.Text = pUserName;
+            PasswordTextBox.Text = pPassword;
+            NoteTextBox.Text = pNote;
 
         }
         private void EditRecordButton_Click(object sender, EventArgs e)

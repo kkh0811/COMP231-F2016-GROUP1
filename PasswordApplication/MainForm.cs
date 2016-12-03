@@ -31,18 +31,18 @@ namespace PasswordApplication
         //set up sending information to other forms
 
         ViewRecordForm vrf = new ViewRecordForm();
-        EditRecordForm edf = new EditRecordForm();
+        
         public MainForm()
         {
             InitializeComponent();
-            
+
         }
 
         private void NewRecordButton_Click(object sender, EventArgs e)
         {
             Form NewRecordForm = new NewRecordForm();
             NewRecordForm.Show();
-			this.Hide();
+            this.Hide();
         }
 
         private void stopTreeViewSound(object sender, KeyEventArgs e)
@@ -77,7 +77,7 @@ namespace PasswordApplication
             userRecordDataGridView.Columns[1].HeaderText = "USER NAME";
             userRecordDataGridView.Columns[2].HeaderText = "PASSWORD";
             userRecordDataGridView.ScrollBars = ScrollBars.Horizontal;
-            
+
         }
 
 
@@ -97,14 +97,6 @@ namespace PasswordApplication
             }
         }
 
-        //Cast GridView column to textbox and use Textbox's passwordChar feature (GirdView should be editable)
-        /*
-        private void userRecordDataGridView_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
-        {
-            if (userRecordDataGridView.CurrentRow.Tag != null)
-                e.Control.Text = userRecordDataGridView.CurrentRow.Tag.ToString();
-        }
-        */
 
         //DataGrid view mouse click event handler
         //when user click the cell, password and user name will be save to clipboard
@@ -186,15 +178,15 @@ namespace PasswordApplication
         private void deleteTollStripMenuItem_Click(object sender, EventArgs e)
         {
             if (userRecordID != 0)
-            {  
-                    //Instantiate new UserRecord and pass userRecordID to the RecordID property
-                    UserRecord userRecord = new UserRecord();
-                    userRecord.RecordID = userRecordID;
-                    //Call DeleteRecordController to delete the UserRecord
-                    DeleteRecordController deleteController = new DeleteRecordController(this, userRecord);
-                    //After delete reset userRecord to 0
-                    if (deleteController.DeleteRecord())
-                        userRecordID = 0;
+            {
+                //Instantiate new UserRecord and pass userRecordID to the RecordID property
+                UserRecord userRecord = new UserRecord();
+                userRecord.RecordID = userRecordID;
+                //Call DeleteRecordController to delete the UserRecord
+                DeleteRecordController deleteController = new DeleteRecordController(this, userRecord);
+                //After delete reset userRecord to 0
+                if (deleteController.DeleteRecord())
+                    userRecordID = 0;
             }
         }
 
@@ -202,15 +194,15 @@ namespace PasswordApplication
         private void DeleteRecordButton_Click(object sender, EventArgs e)
         {
             if (userRecordID != 0)
-            {   
-                    //Instantiate new UserRecord and pass userRecordID to the RecordID property
-                    UserRecord userRecord = new UserRecord();
-                    userRecord.RecordID = userRecordID;
-                    //Call DeleteRecordController to delete the UserRecord
-                    DeleteRecordController deleteController = new DeleteRecordController(this, userRecord);
-                    //After delete reset userRecord to 0
-                    if (deleteController.DeleteRecord())
-                        userRecordID = 0;
+            {
+                //Instantiate new UserRecord and pass userRecordID to the RecordID property
+                UserRecord userRecord = new UserRecord();
+                userRecord.RecordID = userRecordID;
+                //Call DeleteRecordController to delete the UserRecord
+                DeleteRecordController deleteController = new DeleteRecordController(this, userRecord);
+                //After delete reset userRecord to 0
+                if (deleteController.DeleteRecord())
+                    userRecordID = 0;
             }
             else
             {
@@ -228,14 +220,16 @@ namespace PasswordApplication
         //User wants to create "New" record
         private void newTollStripMenuItem_Clic(object sender, EventArgs e)
         {
-            MessageBox.Show("You just click New");
+            Form NewRecordForm = new NewRecordForm();
+            NewRecordForm.Show();
+            this.Hide();
         }
 
 
-      
+
         private void ViewRecordButton_Click(object sender, EventArgs e)
         {
-			try
+            try
             {
                 vrf.GrabRecordID = (Int32)userRecordDataGridView.CurrentRow.Cells[0].Value;
                 vrf.ViewUserName = this.userRecordDataGridView.CurrentRow.Cells[1].Value.ToString();
@@ -298,7 +292,7 @@ namespace PasswordApplication
 
                 }
             }
-            
+
             CategoryTreeView.ExpandAll();
             CategoryTreeView.Refresh();
         }
@@ -308,27 +302,18 @@ namespace PasswordApplication
             this.Hide();
             ManupulateCategoryForm MCF = new ManupulateCategoryForm();
             MCF.ShowDialog();
-            
-        }
-		private void EditRecordButton_Click(object sender, EventArgs e)
-        {        
-            try
-            {
-                ////store selected values from the data grid into the userRecord.
-                //userRecord.RecordID = (Int32)userRecordDataGridView.CurrentRow.Cells[0].Value;
-                //userRecord.UserName = this.userRecordDataGridView.CurrentRow.Cells[1].Value.ToString();
-                //Console.WriteLine("I have stored Username into userRecord");
-                //userRecord.UserPassword = this.userRecordDataGridView.CurrentRow.Cells[2].Value.ToString();
-                //userRecord.Note = this.userRecordDataGridView.CurrentRow.Cells[3].Value.ToString();
-                //userRecord.ServiceName = this.userRecordDataGridView.CurrentRow.Cells[4].ToString();
-                edf.Show();
-                this.Hide();
-            }
 
-            catch
-            {
-                MessageBox.Show("Please select a record first.");
-            }
         }
+        private void EditRecordButton_Click(object sender, EventArgs e)
+        {
+            UserRecord userRecord = new UserRecord();
+            userRecord.RecordID = (Int32)userCurrentClickRow.Cells[0].Value;
+            //userRecord.UserName = this.userRecordDataGridView.CurrentRow.Cells[1].Value.ToString();
+            this.Hide();
+            //on button click, pass the select record ID
+            EditRecordForm ERF = new EditRecordForm();
+            ERF.Show();
+        }
+
     }
 }

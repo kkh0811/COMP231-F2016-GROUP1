@@ -97,6 +97,7 @@
             this.ShowPasswordChkBox.TabIndex = 34;
             this.ShowPasswordChkBox.Text = "Show";
             this.ShowPasswordChkBox.UseVisualStyleBackColor = true;
+            this.ShowPasswordChkBox.CheckedChanged += new System.EventHandler(this.ShowPasswordChkBox_CheckedChanged);
             // 
             // GeneratePwButton
             // 
@@ -190,6 +191,7 @@
             this.CancelButton.TabIndex = 25;
             this.CancelButton.Text = "Cancel";
             this.CancelButton.UseVisualStyleBackColor = true;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // SaveNewRecordButton
             // 
@@ -202,6 +204,7 @@
             this.SaveNewRecordButton.TabIndex = 24;
             this.SaveNewRecordButton.Text = "Save";
             this.SaveNewRecordButton.UseVisualStyleBackColor = true;
+            this.SaveNewRecordButton.Click += new System.EventHandler(this.SaveNewRecordButton_Click);
             // 
             // NoteLabel
             // 
