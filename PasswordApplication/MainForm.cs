@@ -373,11 +373,12 @@ namespace PasswordApplication
             if (selectedCategoryID != 0)
             {
                 //Instantiate new Category and pass CategoryID to the categoryName property
-                Category category = new Category();
-                category.CategoryID = selectedCategoryID;
-                category.CategoryName = selectedCategoryName;
                 this.Hide();
+                Category changeCategory = new Category();
+                changeCategory.CategoryID = selectedCategoryID;
+                changeCategory.CategoryName = selectedCategoryName;
                 ManupulateCategoryForm MCF = new ManupulateCategoryForm();
+                MCF.setOldCategory(changeCategory);
                 MCF.Text = "Edit Category";
                 //Set the controller to be call is EditController
                 MCF.setMethodCall("Edit");

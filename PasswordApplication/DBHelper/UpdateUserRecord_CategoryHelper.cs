@@ -19,10 +19,12 @@ namespace PasswordApplication.Controller
 
             // Delete record from UserRecordCategories table
             SqlCommand updateCategoryCmd;
-            updateCategoryCmd = new SqlCommand("UPDATE UserRecord SET CategoryName = '' WHERE CategoryName = @categoryName;", conn);
+            updateCategoryCmd = new SqlCommand("UPDATE UserRecord SET CategoryName = '' WHERE CategoryName = @categoryName AND UserAccountID = @UserAccountId ;", conn);
 
             // Add the parameters for the DeleteCommand.
             updateCategoryCmd.Parameters.AddWithValue("@categoryName", category.CategoryName);
+            updateCategoryCmd.Parameters.AddWithValue("@UserAccountId", 1);
+
 
             try
             {

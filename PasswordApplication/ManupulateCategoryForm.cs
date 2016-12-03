@@ -1,4 +1,6 @@
-﻿using PasswordApplication.Controller;
+﻿using PasswordApplication.AbstractClass;
+using PasswordApplication.Controller;
+using PasswordApplication.DBHelper;
 using PasswordApplication.Model;
 using System;
 using System.Collections.Generic;
@@ -14,6 +16,7 @@ namespace PasswordApplication
 {
     public partial class ManupulateCategoryForm : Form
     {
+        internal Category oldCategory;
         string methodCall;
 
         //Set the controller call in runtime (EditController or AddController)
@@ -21,9 +24,17 @@ namespace PasswordApplication
         {
             methodCall = method;
         }
+
+        //Set the oldCategory
+        internal void setOldCategory(Category category)
+        {
+            oldCategory = category;
+        }
+
         public ManupulateCategoryForm()
         {
             InitializeComponent();
+            oldCategory = new Category();
         }
 
         private void cancelAddCatrgoryButton_Click(object sender, EventArgs e)
@@ -37,17 +48,20 @@ namespace PasswordApplication
         private void SaveNewCategoryButton_Click(object sender, EventArgs e)
         {
             //Instantiate category model and save category name and UserAccountId (Assume UserAccountId is 1)to it.
-            Category category = new Category();
-            category.CategoryName = CategoryNameTextBox.Text.Trim();
-            category.UserAccountId = 1;
-
+            Category newCategory = new Category();
+            newCategory.CategoryName = CategoryNameTextBox.Text.Trim();
+            newCategory.CategoryID = oldCategory.CategoryID;
+            newCategory.UserAccountId = 1;
+            //The this form is foe editing, then call update controller
             if (methodCall == "Edit")
             {
                 //Call EditCategoryController
+                EditCategoryController updateController = new EditCategoryController(this,oldCategory,newCategory);
+                updateController.EditCategory();
                 return;
             }
             //Instantiate AddCategoryController 
-            AddCategoryController controller = new AddCategoryController(this,category);
+            AddCategoryController controller = new AddCategoryController(this,newCategory);
             if (controller.AddRecord())
             {
                 //MessageBox.Show(String.Format("{0} has been inserted.", category.CategoryName));
@@ -58,6 +72,5 @@ namespace PasswordApplication
                 //MessageBox.Show("Unable new category, please try again later.");
             }
         }
- 
     }
 }
