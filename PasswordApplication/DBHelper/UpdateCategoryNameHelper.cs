@@ -32,7 +32,7 @@ namespace PasswordApplication.DBHelper
             // Add the parameters for the DeleteCommand.
             updateCategoryCmd.Parameters.AddWithValue("@oldCategory", oldCategory.CategoryName);
             updateCategoryCmd.Parameters.AddWithValue("@newCategory", newCategory.CategoryName);
-            updateCategoryCmd.Parameters.AddWithValue("@UserAccountId", 1);
+            updateCategoryCmd.Parameters.AddWithValue("@UserAccountId", newCategory.UserAccountId);
 
             try
             {

@@ -100,14 +100,6 @@ namespace PasswordApplication
             }
         }
 
-        //Cast GridView column to textbox and use Textbox's passwordChar feature (GirdView should be editable)
-        /*
-        private void userRecordDataGridView_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
-        {
-            if (userRecordDataGridView.CurrentRow.Tag != null)
-                e.Control.Text = userRecordDataGridView.CurrentRow.Tag.ToString();
-        }
-        */
 
         //DataGrid view mouse click event handler
         //when user click the cell, password and user name will be save to clipboard
@@ -287,7 +279,6 @@ namespace PasswordApplication
                 // Notice that the query results are stored in the table of the DataSet.
                 foreach (DataRow row in ResultSet.Tables[0].Rows)
                 {
-                    //MessageBox.Show(row["CategoryName"].ToString());
                     // Create the new node. Notice that the CategoryId is stored in the Value property 
                     // of the node. This will make querying for items in a specific category easier when
                     // the third-level nodes are created. 

@@ -55,8 +55,8 @@ namespace PasswordApplication.DBHelper
                 //Update new category to Db
                 updateUserRecordHelper = new UpdateUserRecord_UpdateCategoryHelper();
                 updateCategoryNameHelper = new UpdateCategoryNameHelper();
-                if (updateUserRecordHelper.UpdateEntity(oldCategory,newCategory) 
-                    && updateCategoryNameHelper.UpdateEntity(oldCategory,newCategory))
+                if (updateUserRecordHelper.UpdateEntity(oldCategory,newCategory) |
+                     updateCategoryNameHelper.UpdateEntity(oldCategory,newCategory))
                 {
                     MessageBox.Show(String.Format("{0} has been updated.", ((Category)newCategory).CategoryName));
                     view.Close();

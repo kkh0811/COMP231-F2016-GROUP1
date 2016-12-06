@@ -51,7 +51,7 @@ namespace PasswordApplication.Controller
                 isUserRecordUpdated = updateHelper.EditEntity(entity);  // Cast entity to UserRecord 
                 deleteHelper = new DeleteCategoryHelper();
                 isCategoryDeleted = deleteHelper.DeleteEntity(entity);  // Cast entity to UserRecord
-                if (isUserRecordUpdated && isCategoryDeleted)
+                if (isUserRecordUpdated | isCategoryDeleted)
                 {
                     MessageBox.Show("The Category has been deleted.");
                     // display the result,cast view to MainForm and call MainForm update the Datagrid.

@@ -56,20 +56,15 @@ namespace PasswordApplication
             if (methodCall == "Edit")
             {
                 //Call EditCategoryController
-                EditCategoryController updateController = new EditCategoryController(this,oldCategory,newCategory);
+                EditCategoryController updateController = new EditCategoryController(this, oldCategory, newCategory);
                 updateController.EditCategory();
                 return;
             }
-            //Instantiate AddCategoryController 
-            AddCategoryController controller = new AddCategoryController(this,newCategory);
-            if (controller.AddRecord())
-            {
-                //MessageBox.Show(String.Format("{0} has been inserted.", category.CategoryName));
-            }
             else
             {
-                //Do nothing
-                //MessageBox.Show("Unable new category, please try again later.");
+                //Instantiate AddCategoryController 
+                AddCategoryController controller = new AddCategoryController(this, newCategory);
+                controller.AddRecord();
             }
         }
     }
