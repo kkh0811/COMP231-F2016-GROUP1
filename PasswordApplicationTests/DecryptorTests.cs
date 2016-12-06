@@ -1,4 +1,7 @@
 ﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PasswordApplication;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,20 +9,24 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.IO;
 
-namespace PasswordApplication
+namespace PasswordApplicationTests
 {
-    public class Decryptor
+    [TestClass]
+    public class DecryptorTests
     {
-        // AES_256 Decryption
-        public String AESDecrypt256(String InputText)
+        [TestMethod]
+        public void AESDecrypt256Test()
         {
-            // the value of key will be changed in next iteration
+            Decryptor decryptor = new Decryptor();
+
+            string str1 = decryptor.AESDecrypt256("vg2Ut0g/I5nnXxqn2v6/JQ==");
+
             string Key = "1234567890";
 
             // Declare Rijndael class 
             RijndaelManaged RinjindaelCipher = new RijndaelManaged();
 
-            byte[] EncryptedData = Convert.FromBase64String(InputText);
+            byte[] EncryptedData = Convert.FromBase64String("vg2Ut0g/I5nnXxqn2v6/JQ==");
             byte[] Salt = Encoding.ASCII.GetBytes(Key.Length.ToString());
 
             PasswordDeriveBytes SecretKey = new PasswordDeriveBytes(Key, Salt);
@@ -42,7 +49,8 @@ namespace PasswordApplication
             cryptoStream.Close();
 
             string DecryptedData = Encoding.Unicode.GetString(PlainText, 0, DecryptedCount);
-            return DecryptedData;
+
+            Assert.AreEqual(str1, DecryptedData);
         }
     }
 }
