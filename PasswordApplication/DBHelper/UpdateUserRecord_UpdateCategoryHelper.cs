@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace PasswordApplication.DBHelper
 {
+    /// <summary>
+    /// Update category name to UserRecord table,change old categoryName to new categoryName, accept old category entity, new category entity.
+    /// </summary>
     class UpdateUserRecord_UpdateCategoryHelper : IUpdate
     {
 

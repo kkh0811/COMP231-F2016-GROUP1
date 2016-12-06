@@ -6,6 +6,9 @@ using PasswordApplication.Model;
 
 namespace PasswordApplication.Controller
 {
+    /// <summary>
+    /// Update category name to userRecord table, set categoryName to default empty string value.
+    /// </summary>
     internal class UpdateUserRecord_categoryHelper : IEdit
     {
         bool isUpdated;

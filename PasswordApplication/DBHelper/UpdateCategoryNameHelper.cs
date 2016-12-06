@@ -10,6 +10,9 @@ using PasswordApplication.Model;
 
 namespace PasswordApplication.DBHelper
 {
+    /// <summary>
+    /// Update Category name to categories table, accept old Category entity, new category entity
+    /// </summary>
     class UpdateCategoryNameHelper : IUpdate
     {
         bool isUpdated;
