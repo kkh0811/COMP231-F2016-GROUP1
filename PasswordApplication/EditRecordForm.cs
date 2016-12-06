@@ -16,10 +16,9 @@ using PasswordApplication.Controller;
 namespace PasswordApplication
 {
     public partial class EditRecordForm : Form
-    {   //instantiate objs        
-        UserNameValidator unv = new UserNameValidator();
-        PasswordValidator pv = new PasswordValidator();
-        NoteValidator nv = new NoteValidator();
+    {
+        internal UserRecord oldUserRecord;
+        //instantiate objs
         UserRecord editUserRecord = new UserRecord();
         Category selectedCategory = new Category();
         ServiceNameValidator snv = new ServiceNameValidator();
@@ -28,96 +27,133 @@ namespace PasswordApplication
         public EditRecordForm()
         {
             InitializeComponent();
-            
-        }
 
+        }
+        internal void passData(UserRecord userRecord)
+        {
+            oldUserRecord = userRecord;
+        }
         private void EditRecordForm_Load(object sender, EventArgs e)
         {
-            
-            UserRecord userRecord = new UserRecord();
-            UserNameTextBox.Text = userRecord.UserName;
             Category category = new Category();
             DataSet dataSet = new DataSet();
             category.UserAccountId = 1;
             //on form load, show the data from selected record in respective text box fields
-            listCategory.SelectEntity(category).Fill(dataSet,"Categories");
+            listCategory.SelectEntity(category).Fill(dataSet, "Categories");
             foreach (DataRow row in dataSet.Tables[0].Rows)
             {
-                CategoryOptionComboBox.Text = row["CategoryName"].ToString();
+                CategoryOptionComboBox.Items.Add(row["CategoryName"].ToString());
             }
+            UserNameTextBox.Text = oldUserRecord.UserName;
+            PasswordTextBox.Text = oldUserRecord.UserPassword;
+            ServiceNameTextBox.Text = oldUserRecord.ServiceName;
+
+            NoteTextBox.Text = oldUserRecord.Note;
+            CategoryOptionComboBox.SelectedIndex = CategoryOptionComboBox.FindString(oldUserRecord.CategoryName);
+
         }
-        
-        private bool ValidatingEditRecord()
+
+        /// <summary>
+        /// Public constructor for unit test
+        /// </summary>
+        /// <param name="isValid"></param>
+        /// <param name="isTest"></param>
+        /// <returns></returns>
+        public bool ValidatingEditRecord(bool isValid, bool isTest)
         {
+            return ValidatingEditRecord(isValid);
+        }
+        /// <summary>
+        /// Method that will be called when validating user input prior to sending to database.
+        /// If validate successful, method will return true. Otherwise, it will return false.
+        /// </summary>
+        private bool ValidatingEditRecord(bool isValid)
+        {
+            //set default to true
+            isValid = true;
+            //pass record to textboxes
             editUserRecord.UserName = UserNameTextBox.Text;
             editUserRecord.UserPassword = PasswordTextBox.Text;
             editUserRecord.ServiceName = ServiceNameTextBox.Text;
             editUserRecord.Note = NoteTextBox.Text;
-            EditUserRecordController controller = new EditUserRecordController(this,editUserRecord);
+            //instantiate controller class
+            EditUserRecordController controller = new EditUserRecordController(this, editUserRecord);
             errorProvider.Clear();
-            //validate username text box
-            if (controller.EditUserName() == true)
+            if (isValid == true)
             {
-                //validation for username is correct
-                errorProvider.SetError(UserNameTextBox, "");
-            }
-            else
-            {
-                //validation for username is incorrect
-                errorProvider.SetError(UserNameTextBox, "Please enter username in alphabets and numbers. Email format is allowed.");
-                return false;
-            }
-            //validate password text box
-            if (controller.EditPassword() == true)
-            {
-                //validation for password is correct
-                errorProvider.SetError(PasswordTextBox, "");
-            }
-            else
-            {
-                //validation is incorrect
-                errorProvider.SetError(PasswordTextBox, "Please make sure your password has minimum two characters, at least one number and letter. \nCannot contain the following special characters:" +
-                    " & ' . OR ");
-                return false;
+                //validate username text box
+                if (controller.EditUserName() == true)
+                {
+                    //validation for username is correct
+                    errorProvider.SetError(UserNameTextBox, "");
+                }
+                else
+                {
+                    //validation for username is incorrect
+                    errorProvider.SetError(UserNameTextBox, "Please enter username in alphabets and numbers. Email format is allowed.");
+                    return false;
+                }
+                //validate password text box
+                if (controller.EditPassword() == true)
+                {
+                    //validation for password is correct
+                    errorProvider.SetError(PasswordTextBox, "");
+                }
+                else
+                {
+                    //validation is incorrect
+                    errorProvider.SetError(PasswordTextBox, "Please make sure your password has minimum two characters, at least one number and letter. \nCannot contain the following special characters:" +
+                        " & ' . OR ");
+                    return false;
 
-            }
-            //validate password verify text box
-            if (PasswordTextBox.Text == VerifyPasswordTextBox.Text)
-            {
-                //validation for same password is correct
-                errorProvider.SetError(VerifyPasswordTextBox, "");
+                }
+                //validate password verify text box
+                if (PasswordTextBox.Text == VerifyPasswordTextBox.Text)
+                {
+                    //validation for same password is correct
+                    errorProvider.SetError(VerifyPasswordTextBox, "");
+                }
+                else
+                {
+                    //validation for same password is incorrect
+                    errorProvider.SetError(VerifyPasswordTextBox, "The passwords do not match.Please enter them again.");
+                    return false;
+                }
+                //validate service name text box
+                if (controller.EditServiceName() == true)
+                {
+                    errorProvider.SetError(ServiceNameTextBox, "");
+                }
+                else
+                {
+                    errorProvider.SetError(ServiceNameTextBox, "Service name has to be minimum 2 characters long and \ncan only use _ @ . or whitespace");
+                    return false;
+                }
+                //validate note text box
+                if (controller.EditNote() == true)
+                {
+                    //correct validation
+                    errorProvider.SetError(NoteTextBox, "");
+                    return true;
+                }
+                else
+                {
+                    //incorrect validation
+                    errorProvider.SetError(NoteTextBox, "Please don't put in any of the following characters ‘, \\ * & ; - '");
+                    return false;
+                }
             }
             else
             {
-                //validation for same password is incorrect
-                errorProvider.SetError(VerifyPasswordTextBox, "The passwords do not match.Please enter them again.");
-                return false;
+                isValid = false;
             }
-            //validate service name text box
-            if (controller.EditServiceName() == true)
-            {
-                errorProvider.SetError(ServiceNameTextBox, "");
-            }
-            else
-            {
-                errorProvider.SetError(ServiceNameTextBox, "Service name has to be minimum 2 characters long and \ncan only use _ @ . or whitespace");
-                return false;
-            }
-            //validate note text box
-            if (controller.EditNote() == true)
-            {
-                //correct validation
-                errorProvider.SetError(NoteTextBox, "");
-                return true;
-            }
-            else
-            {
-                //incorrect validation
-                errorProvider.SetError(NoteTextBox, "Please don't put in any of the following characters ‘, \\ * & ; - '");
-                return false;
-            }
+            return isValid;
 
         }
+
+        /// <summary>
+        /// Method that checks if user selects checkbox to show masked characters for password and verify password text box.
+        /// </summary>
         private void ShowPasswordChkBox_CheckedChanged(object sender, EventArgs e)
         {
             //check if user check to show password or not and display/no display.
@@ -133,9 +169,16 @@ namespace PasswordApplication
 
             }
         }
+        /// <summary>
+        /// When save button is clicked, method will validate the user input.
+        /// If user input validation passes, controller class EditUserRecordController obj is created and calls method UpdateRecord
+        /// to process update record.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SaveNewRecordButton_Click(object sender, EventArgs e)
         {
-            if (ValidatingEditRecord() == true)
+            if (ValidatingEditRecord(true))
             {
                 //grab category ID of selected value
                 selectedCategory.CategoryID = Convert.ToInt16(CategoryOptionComboBox.SelectedIndex);
@@ -143,22 +186,24 @@ namespace PasswordApplication
                 editUserRecord.UserName = UserNameTextBox.Text;
                 editUserRecord.UserPassword = PasswordTextBox.Text;
                 editUserRecord.ServiceName = ServiceNameTextBox.Text;
+                editUserRecord.RecordID = oldUserRecord.RecordID;
+
                 if (selectedCategory.CategoryID != 0)
                 {
-                    selectedCategory.CategoryName = CategoryOptionComboBox.SelectedItem.ToString();
+                    editUserRecord.CategoryName = CategoryOptionComboBox.SelectedItem.ToString();
                 }
                 else
                 {
                     selectedCategory.CategoryName = "";
                 }
-                
-                EditUserRecordController controller = new EditUserRecordController(this,editUserRecord,selectedCategory);
+                //instantiate controller to call method UpdateRecord from controller class
+                EditUserRecordController controller = new EditUserRecordController(this, editUserRecord);
                 controller.UpdateRecord();
+                //After record is updated, show the message box and direct back to main form
                 MessageBox.Show("Record has been updated.");
                 this.Hide();
                 MainForm mainForm = new MainForm();
                 mainForm.Show();
-
             }
             else
             {
@@ -166,10 +211,13 @@ namespace PasswordApplication
                 MessageBox.Show("Please enter the correct information and try again.", "Edit User Record", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-
         }
 
+        /// <summary>
+        /// When user selects the cancel button, bring user back to main form.
+        /// </summary>
+        /// <param object="sender"></param>
+        /// <param EventArgs="e"></param>
         private void CancelButton_Click(object sender, EventArgs e)
         {
             this.Dispose();

@@ -297,15 +297,9 @@
         private System.Windows.Forms.Label CreateNewRecordLabel;
         private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox ServiceNameTextBox;
         private System.Windows.Forms.CheckBox ShowPasswordChkBox;
         private System.Windows.Forms.Button GeneratePwButton;
         private System.Windows.Forms.Button GenerateNewCateButton;
-        private System.Windows.Forms.TextBox VerifyPasswordTextBox;
-        private System.Windows.Forms.TextBox PasswordTextBox;
-        private System.Windows.Forms.TextBox NoteTextBox;
-        private System.Windows.Forms.TextBox UserNameTextBox;
-        private System.Windows.Forms.ComboBox CategoryOptionComboBox;
         private System.Windows.Forms.Button CancelButton;
         private System.Windows.Forms.Button SaveNewRecordButton;
         private System.Windows.Forms.Label NoteLabel;
@@ -313,5 +307,11 @@
         private System.Windows.Forms.Label PasswordLabel;
         private System.Windows.Forms.Label UserNameLabel;
         private System.Windows.Forms.Label CategoryLabel;
+        public System.Windows.Forms.TextBox ServiceNameTextBox;
+        public System.Windows.Forms.TextBox VerifyPasswordTextBox;
+        public System.Windows.Forms.TextBox PasswordTextBox;
+        public System.Windows.Forms.TextBox NoteTextBox;
+        public System.Windows.Forms.ComboBox CategoryOptionComboBox;
+        public System.Windows.Forms.TextBox UserNameTextBox;
     }
 }

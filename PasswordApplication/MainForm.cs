@@ -74,8 +74,8 @@ namespace PasswordApplication
             userRecordDataGridView.Columns["Note"].Visible = false;
             userRecordDataGridView.Columns["RecordID"].Visible = false;
             // Rename columuns
-            userRecordDataGridView.Columns[1].HeaderText = "USER NAME";
-            userRecordDataGridView.Columns[2].HeaderText = "PASSWORD";
+            userRecordDataGridView.Columns[1].HeaderText = "User Name";
+            userRecordDataGridView.Columns[2].HeaderText = "Password";
             userRecordDataGridView.ScrollBars = ScrollBars.Horizontal;
 
         }
@@ -306,13 +306,25 @@ namespace PasswordApplication
         }
         private void EditRecordButton_Click(object sender, EventArgs e)
         {
-            UserRecord userRecord = new UserRecord();
-            userRecord.RecordID = (Int32)userCurrentClickRow.Cells[0].Value;
-            //userRecord.UserName = this.userRecordDataGridView.CurrentRow.Cells[1].Value.ToString();
-            this.Hide();
-            //on button click, pass the select record ID
-            EditRecordForm ERF = new EditRecordForm();
-            ERF.Show();
+            UserRecord passUserRecord = new UserRecord();
+            try
+            {                
+                passUserRecord.RecordID = userRecordID;
+                passUserRecord.UserName = this.userRecordDataGridView.CurrentRow.Cells[1].Value.ToString();
+                passUserRecord.UserPassword = this.userRecordDataGridView.CurrentRow.Cells[2].Value.ToString();
+                passUserRecord.ServiceName = this.userRecordDataGridView.CurrentRow.Cells[3].Value.ToString();
+                passUserRecord.CategoryName = this.userRecordDataGridView.CurrentRow.Cells[6].Value.ToString();
+                passUserRecord.Note = this.userRecordDataGridView.CurrentRow.Cells[4].Value.ToString();
+                EditRecordForm ERF = new EditRecordForm();
+                ERF.passData(passUserRecord);
+                this.Hide();
+                ERF.Show();
+
+            }
+            catch 
+            {
+                MessageBox.Show("Please select a record first.", "Error",MessageBoxButtons.OK,MessageBoxIcon.Hand);
+            }
         }
 
     }

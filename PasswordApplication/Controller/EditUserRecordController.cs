@@ -19,6 +19,7 @@ namespace PasswordApplication.Controller
         Form view;
         //entity to resemble table from db
         AbDatabaseEntity entity;
+ 
         //editHelper class to handle the database commands
         IEdit editHelper;
         //instantiate objs
@@ -30,12 +31,7 @@ namespace PasswordApplication.Controller
             this.entity = _entity;
 
         }
-        public EditUserRecordController(Form _view,params AbDatabaseEntity[] _entity)
-        {
-            this.view = _view;
-            this.entity = _entity[0];
-            this.entity = _entity[1];
-        }
+
 
         //call the username
         public bool EditUserName()
@@ -104,7 +100,7 @@ namespace PasswordApplication.Controller
 
             editHelper = new EditUserRecordhelper();
 
-            if (editHelper.EditEntity(entity))
+            if (editHelper.EditEntity((UserRecord)entity))
             {
                 isUpdated = true;
             }

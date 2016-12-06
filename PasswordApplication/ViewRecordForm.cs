@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PasswordApplication.Model;
 
 namespace PasswordApplication
 {
@@ -57,17 +58,24 @@ namespace PasswordApplication
             NoteTextBox.Text = pNote;
 
         }
+        /// <summary>
+        /// On button click, open Edit Record Form with the data passed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EditRecordButton_Click(object sender, EventArgs e)
         {
-            //open edit records form
-            //EditRecordForm erf = new EditRecordForm();
-            //erf.GrabRecordID = pRecordID;
-            //erf.EditUserName = pUserName;
-            //erf.EditCategory = pCategory;
-            //erf.EditPassword = pPassword;
-            //erf.EditNote = pNote;
-            //erf.Show();
-            //this.Hide();
+            UserRecord passUserRecord = new UserRecord();
+            passUserRecord.UserName = UserNameTextBox.Text;
+            passUserRecord.UserPassword = PasswordTextBox.Text;
+            passUserRecord.ServiceName = ServiceNameTextBox.Text;
+            passUserRecord.CategoryName = CategoryOptionComboBox.SelectedText.ToString();
+            passUserRecord.Note = NoteTextBox.Text;
+            EditRecordForm ERF = new EditRecordForm();
+            ERF.passData(passUserRecord);
+            this.Hide();
+            ERF.Show();
+
         }
 
         private void OkButton_Click(object sender, EventArgs e)
