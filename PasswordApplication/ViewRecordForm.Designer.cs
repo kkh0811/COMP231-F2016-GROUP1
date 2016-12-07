@@ -38,6 +38,9 @@
             this.UserNameTextBox = new System.Windows.Forms.TextBox();
             this.NoteTextBox = new System.Windows.Forms.TextBox();
             this.PasswordTextBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.ServiceNameTextBox = new System.Windows.Forms.TextBox();
+            this.ShowChkBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // CategoryLabel
@@ -77,7 +80,7 @@
             // 
             this.NoteLabel.AutoSize = true;
             this.NoteLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NoteLabel.Location = new System.Drawing.Point(154, 239);
+            this.NoteLabel.Location = new System.Drawing.Point(151, 280);
             this.NoteLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.NoteLabel.Name = "NoteLabel";
             this.NoteLabel.Size = new System.Drawing.Size(59, 25);
@@ -115,15 +118,10 @@
             this.CategoryOptionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CategoryOptionComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CategoryOptionComboBox.FormattingEnabled = true;
-            this.CategoryOptionComboBox.Items.AddRange(new object[] {
-            "--Select One--",
-            "email",
-            "internet",
-            "bank"});
             this.CategoryOptionComboBox.Location = new System.Drawing.Point(228, 73);
             this.CategoryOptionComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.CategoryOptionComboBox.Name = "CategoryOptionComboBox";
-            this.CategoryOptionComboBox.Size = new System.Drawing.Size(359, 33);
+            this.CategoryOptionComboBox.Size = new System.Drawing.Size(341, 33);
             this.CategoryOptionComboBox.TabIndex = 23;
             // 
             // UserNameTextBox
@@ -134,18 +132,18 @@
             this.UserNameTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.UserNameTextBox.Name = "UserNameTextBox";
             this.UserNameTextBox.ReadOnly = true;
-            this.UserNameTextBox.Size = new System.Drawing.Size(359, 30);
+            this.UserNameTextBox.Size = new System.Drawing.Size(341, 30);
             this.UserNameTextBox.TabIndex = 24;
             // 
             // NoteTextBox
             // 
             this.NoteTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NoteTextBox.Location = new System.Drawing.Point(226, 239);
+            this.NoteTextBox.Location = new System.Drawing.Point(226, 280);
             this.NoteTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.NoteTextBox.Multiline = true;
             this.NoteTextBox.Name = "NoteTextBox";
             this.NoteTextBox.ReadOnly = true;
-            this.NoteTextBox.Size = new System.Drawing.Size(361, 155);
+            this.NoteTextBox.Size = new System.Drawing.Size(343, 155);
             this.NoteTextBox.TabIndex = 27;
             // 
             // PasswordTextBox
@@ -156,20 +154,56 @@
             this.PasswordTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.PasswordTextBox.Name = "PasswordTextBox";
             this.PasswordTextBox.ReadOnly = true;
-            this.PasswordTextBox.Size = new System.Drawing.Size(359, 30);
+            this.PasswordTextBox.Size = new System.Drawing.Size(341, 30);
             this.PasswordTextBox.TabIndex = 25;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(69, 224);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(141, 25);
+            this.label1.TabIndex = 20;
+            this.label1.Text = "Service Name:";
+            // 
+            // ServiceNameTextBox
+            // 
+            this.ServiceNameTextBox.CausesValidation = false;
+            this.ServiceNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ServiceNameTextBox.Location = new System.Drawing.Point(228, 224);
+            this.ServiceNameTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.ServiceNameTextBox.Name = "ServiceNameTextBox";
+            this.ServiceNameTextBox.ReadOnly = true;
+            this.ServiceNameTextBox.Size = new System.Drawing.Size(341, 30);
+            this.ServiceNameTextBox.TabIndex = 24;
+            // 
+            // ShowChkBox
+            // 
+            this.ShowChkBox.AutoSize = true;
+            this.ShowChkBox.Location = new System.Drawing.Point(596, 185);
+            this.ShowChkBox.Name = "ShowChkBox";
+            this.ShowChkBox.Size = new System.Drawing.Size(64, 21);
+            this.ShowChkBox.TabIndex = 28;
+            this.ShowChkBox.Text = "Show";
+            this.ShowChkBox.UseVisualStyleBackColor = true;
+            this.ShowChkBox.CheckedChanged += new System.EventHandler(this.ShowChkBox_CheckedChanged);
             // 
             // ViewRecordForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(706, 597);
+            this.Controls.Add(this.ShowChkBox);
             this.Controls.Add(this.PasswordTextBox);
             this.Controls.Add(this.NoteTextBox);
+            this.Controls.Add(this.ServiceNameTextBox);
             this.Controls.Add(this.UserNameTextBox);
             this.Controls.Add(this.CategoryOptionComboBox);
             this.Controls.Add(this.OkButton);
             this.Controls.Add(this.EditRecordButton);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.NoteLabel);
             this.Controls.Add(this.PasswordLabel);
             this.Controls.Add(this.UserNameLabel);
@@ -194,5 +228,8 @@
         public System.Windows.Forms.TextBox UserNameTextBox;
         public System.Windows.Forms.TextBox NoteTextBox;
         public System.Windows.Forms.TextBox PasswordTextBox;
+        private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.TextBox ServiceNameTextBox;
+        private System.Windows.Forms.CheckBox ShowChkBox;
     }
 }

@@ -230,14 +230,28 @@ namespace PasswordApplication
       
         private void ViewRecordButton_Click(object sender, EventArgs e)
         {
-			try
+            try
             {
-                vrf.GrabRecordID = (Int32)userRecordDataGridView.CurrentRow.Cells[0].Value;
-                vrf.ViewUserName = this.userRecordDataGridView.CurrentRow.Cells[1].Value.ToString();
-                vrf.ViewPassword = this.userRecordDataGridView.CurrentRow.Cells[2].Value.ToString();
-                vrf.ViewNote = this.userRecordDataGridView.CurrentRow.Cells[3].Value.ToString();
-                vrf.Show();
-                this.Hide();
+                bool isSelected;
+                //Instantiate new UserRecord and pass userRecordID to the RecordID property
+                UserRecord userRecord = new UserRecord();
+
+                userRecord.RecordID = (Int32)userCurrentClickRow.Cells[0].Value;
+                userRecord.UserName = this.userCurrentClickRow.Cells[1].Value.ToString();
+                userRecord.UserPassword = this.userCurrentClickRow.Cells[2].Value.ToString();
+                userRecord.ServiceName = this.userCurrentClickRow.Cells[3].Value.ToString();
+                userRecord.Note = this.userCurrentClickRow.Cells[4].Value.ToString();
+                userRecord.CategoryName = this.userCurrentClickRow.Cells[6].Value.ToString();
+
+                viewRecordDetails viewRecordclass = new viewRecordDetails();
+                isSelected = viewRecordclass.SelectEntity(userRecord);
+
+                if (isSelected)
+                {
+
+                    this.Hide();
+
+                }
             }
 
             catch
@@ -248,12 +262,7 @@ namespace PasswordApplication
 
         private void userRecordDataGridView_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            vrf.GrabRecordID = (Int32)userRecordDataGridView.CurrentRow.Cells[0].Value;
-            vrf.ViewUserName = this.userRecordDataGridView.CurrentRow.Cells[1].Value.ToString();
-            vrf.ViewPassword = this.userRecordDataGridView.CurrentRow.Cells[2].Value.ToString();
-            vrf.ViewNote = this.userRecordDataGridView.CurrentRow.Cells[3].Value.ToString();
-            vrf.Show();
-            this.Hide();
+            
 
         }
 
