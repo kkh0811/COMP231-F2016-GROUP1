@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Category");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Category");
             this.CategoryFlowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.CategoryTreeView = new System.Windows.Forms.TreeView();
             this.InteractCategoryPanel = new System.Windows.Forms.Panel();
@@ -208,39 +208,40 @@
             // 
             // UserRightClickContextMenuStrip
             // 
+            this.UserRightClickContextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.UserRightClickContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripMenuItem,
             this.deleteToolStripMenuItem1,
             this.editToolStripMenuItem1,
             this.viewToolStripMenuItem1});
             this.UserRightClickContextMenuStrip.Name = "UserRightClickContextMenuStrip";
-            this.UserRightClickContextMenuStrip.Size = new System.Drawing.Size(108, 92);
+            this.UserRightClickContextMenuStrip.Size = new System.Drawing.Size(129, 108);
             // 
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
             this.newToolStripMenuItem.Text = "View";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.viewToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem1
             // 
             this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
-            this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(107, 22);
+            this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(128, 26);
             this.deleteToolStripMenuItem1.Text = "Edit";
             this.deleteToolStripMenuItem1.Click += new System.EventHandler(this.editTollStripMenuItem_Click);
             // 
             // editToolStripMenuItem1
             // 
             this.editToolStripMenuItem1.Name = "editToolStripMenuItem1";
-            this.editToolStripMenuItem1.Size = new System.Drawing.Size(107, 22);
+            this.editToolStripMenuItem1.Size = new System.Drawing.Size(128, 26);
             this.editToolStripMenuItem1.Text = "Delete";
             this.editToolStripMenuItem1.Click += new System.EventHandler(this.deleteTollStripMenuItem_Click);
             // 
             // viewToolStripMenuItem1
             // 
             this.viewToolStripMenuItem1.Name = "viewToolStripMenuItem1";
-            this.viewToolStripMenuItem1.Size = new System.Drawing.Size(107, 22);
+            this.viewToolStripMenuItem1.Size = new System.Drawing.Size(128, 26);
             this.viewToolStripMenuItem1.Text = "New";
             this.viewToolStripMenuItem1.Click += new System.EventHandler(this.newTollStripMenuItem_Clic);
             // 
@@ -252,26 +253,29 @@
             this.InteractRecordPanel.Controls.Add(this.DeleteRecordButton);
             this.InteractRecordPanel.Controls.Add(this.EditRecordButton);
             this.InteractRecordPanel.Controls.Add(this.NewRecordButton);
-            this.InteractRecordPanel.Location = new System.Drawing.Point(195, 465);
+            this.InteractRecordPanel.Location = new System.Drawing.Point(260, 572);
+            this.InteractRecordPanel.Margin = new System.Windows.Forms.Padding(4);
             this.InteractRecordPanel.Name = "InteractRecordPanel";
-            this.InteractRecordPanel.Size = new System.Drawing.Size(433, 145);
+            this.InteractRecordPanel.Size = new System.Drawing.Size(577, 178);
             this.InteractRecordPanel.TabIndex = 4;
             // 
             // sepLinelabel1
             // 
             this.sepLinelabel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.sepLinelabel1.Location = new System.Drawing.Point(3, 0);
+            this.sepLinelabel1.Location = new System.Drawing.Point(4, 0);
+            this.sepLinelabel1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.sepLinelabel1.Name = "sepLinelabel1";
-            this.sepLinelabel1.Size = new System.Drawing.Size(370, 2);
+            this.sepLinelabel1.Size = new System.Drawing.Size(493, 2);
             this.sepLinelabel1.TabIndex = 0;
             this.sepLinelabel1.Text = "label1";
             // 
             // ViewRecordButton
             // 
             this.ViewRecordButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.ViewRecordButton.Location = new System.Drawing.Point(280, 15);
+            this.ViewRecordButton.Location = new System.Drawing.Point(373, 18);
+            this.ViewRecordButton.Margin = new System.Windows.Forms.Padding(4);
             this.ViewRecordButton.Name = "ViewRecordButton";
-            this.ViewRecordButton.Size = new System.Drawing.Size(75, 27);
+            this.ViewRecordButton.Size = new System.Drawing.Size(100, 33);
             this.ViewRecordButton.TabIndex = 3;
             this.ViewRecordButton.Text = "View Record";
             this.ViewRecordButton.UseVisualStyleBackColor = true;
@@ -280,9 +284,10 @@
             // DeleteRecordButton
             // 
             this.DeleteRecordButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.DeleteRecordButton.Location = new System.Drawing.Point(193, 15);
+            this.DeleteRecordButton.Location = new System.Drawing.Point(257, 18);
+            this.DeleteRecordButton.Margin = new System.Windows.Forms.Padding(4);
             this.DeleteRecordButton.Name = "DeleteRecordButton";
-            this.DeleteRecordButton.Size = new System.Drawing.Size(75, 27);
+            this.DeleteRecordButton.Size = new System.Drawing.Size(100, 33);
             this.DeleteRecordButton.TabIndex = 2;
             this.DeleteRecordButton.Text = "Delete Record";
             this.DeleteRecordButton.UseVisualStyleBackColor = true;
@@ -291,9 +296,10 @@
             // EditRecordButton
             // 
             this.EditRecordButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.EditRecordButton.Location = new System.Drawing.Point(106, 15);
+            this.EditRecordButton.Location = new System.Drawing.Point(141, 18);
+            this.EditRecordButton.Margin = new System.Windows.Forms.Padding(4);
             this.EditRecordButton.Name = "EditRecordButton";
-            this.EditRecordButton.Size = new System.Drawing.Size(75, 27);
+            this.EditRecordButton.Size = new System.Drawing.Size(100, 33);
             this.EditRecordButton.TabIndex = 1;
             this.EditRecordButton.Text = "Edit Record";
             this.EditRecordButton.UseVisualStyleBackColor = true;
@@ -302,9 +308,10 @@
             // NewRecordButton
             // 
             this.NewRecordButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.NewRecordButton.Location = new System.Drawing.Point(19, 15);
+            this.NewRecordButton.Location = new System.Drawing.Point(25, 18);
+            this.NewRecordButton.Margin = new System.Windows.Forms.Padding(4);
             this.NewRecordButton.Name = "NewRecordButton";
-            this.NewRecordButton.Size = new System.Drawing.Size(75, 27);
+            this.NewRecordButton.Size = new System.Drawing.Size(100, 33);
             this.NewRecordButton.TabIndex = 0;
             this.NewRecordButton.Text = "New Record";
             this.NewRecordButton.UseVisualStyleBackColor = true;
@@ -319,7 +326,8 @@
             this.configToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(572, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(835, 28);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.Visible = false;
@@ -330,19 +338,19 @@
             this.logoutToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // logoutToolStripMenuItem
             // 
             this.logoutToolStripMenuItem.Name = "logoutToolStripMenuItem";
-            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
             this.logoutToolStripMenuItem.Text = "Logout";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // accountToolStripMenuItem
@@ -352,25 +360,25 @@
             this.deleteToolStripMenuItem,
             this.editToolStripMenuItem});
             this.accountToolStripMenuItem.Name = "accountToolStripMenuItem";
-            this.accountToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
+            this.accountToolStripMenuItem.Size = new System.Drawing.Size(75, 24);
             this.accountToolStripMenuItem.Text = "Account";
             // 
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
             this.viewToolStripMenuItem.Text = "View";
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
             this.deleteToolStripMenuItem.Text = "Delete";
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
             this.editToolStripMenuItem.Text = "Edit";
             // 
             // configToolStripMenuItem
@@ -378,13 +386,13 @@
             this.configToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingsToolStripMenuItem});
             this.configToolStripMenuItem.Name = "configToolStripMenuItem";
-            this.configToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
+            this.configToolStripMenuItem.Size = new System.Drawing.Size(65, 24);
             this.configToolStripMenuItem.Text = "Config";
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(137, 26);
             this.settingsToolStripMenuItem.Text = "Settings";
             // 
             // userRecorsDataGripToolTip
@@ -396,16 +404,17 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(626, 610);
+            this.ClientSize = new System.Drawing.Size(835, 751);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.InteractRecordPanel);
             this.Controls.Add(this.flowLayoutPanel2);
             this.Controls.Add(this.InteractCategoryPanel);
             this.Controls.Add(this.CategoryFlowLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Password App";

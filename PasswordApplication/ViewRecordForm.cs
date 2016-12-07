@@ -29,24 +29,29 @@ namespace PasswordApplication
             //display the selected information
             //get information from DB and show the necessary information
             UserNameTextBox.Text = pUserName;
-            //PasswordTextBox.Text = pPassword;
+
             PasswordTextBox.Text = decryptor.AESDecrypt256(pPassword);
             NoteTextBox.Text = pNote;
 
         }
+        /// <summary>
+        /// On button click, open Edit Record Form with the data passed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EditRecordButton_Click(object sender, EventArgs e)
         {
-
-            
-            //open edit records form
-            EditRecordForm erf = new EditRecordForm();
-            erf.GrabRecordID = pRecordID;
-            erf.EditUserName = pUserName;
-            erf.EditCategory = pCategory;
-            erf.EditPassword = decryptor.AESDecrypt256(pPassword);
-            erf.EditNote = pNote;
-            erf.Show();
+            UserRecord passUserRecord = new UserRecord();
+            passUserRecord.UserName = UserNameTextBox.Text;
+            passUserRecord.UserPassword = PasswordTextBox.Text;
+            passUserRecord.ServiceName = ServiceNameTextBox.Text;
+            passUserRecord.CategoryName = CategoryOptionComboBox.SelectedText.ToString();
+            passUserRecord.Note = NoteTextBox.Text;
+            EditRecordForm ERF = new EditRecordForm();
+            ERF.passData(passUserRecord);
             this.Hide();
+            ERF.Show();
+
         }
 
         private void OkButton_Click(object sender, EventArgs e)

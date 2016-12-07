@@ -15,7 +15,7 @@ namespace PasswordApplication
     class NoteValidator : IValidation
     {
         //pattern
-        private string pattern = "^([a-zA-Z0-1@.,\\s*]{0,255})$";
+        private string pattern = "^([a-zA-Z0-9@.,\\s*]{0,255})$";
         Regex regex;
         
 

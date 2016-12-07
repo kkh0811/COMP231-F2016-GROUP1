@@ -23,6 +23,6 @@ namespace PasswordApplication.Interfaces
     interface IEdit
     {
         //DatabaseEntity can be UserRecord,Category,UserAccount
-        bool EditEntity(AbDatabaseEntity Entity);
+        bool EditEntity(params AbDatabaseEntity[] Entity);
     }
 }
