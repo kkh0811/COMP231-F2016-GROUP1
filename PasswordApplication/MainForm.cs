@@ -31,6 +31,10 @@ namespace PasswordApplication
         //set up sending information to other forms
         ViewRecordForm vrf = new ViewRecordForm();
         EditRecordForm edf = new EditRecordForm();
+
+        //The category Id and Name the user is selected
+        private int selectedCategoryID;
+        private string selectedCategoryName;
         public MainForm()
         {
             InitializeComponent();
@@ -96,14 +100,6 @@ namespace PasswordApplication
             }
         }
 
-        //Cast GridView column to textbox and use Textbox's passwordChar feature (GirdView should be editable)
-        /*
-        private void userRecordDataGridView_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
-        {
-            if (userRecordDataGridView.CurrentRow.Tag != null)
-                e.Control.Text = userRecordDataGridView.CurrentRow.Tag.ToString();
-        }
-        */
 
         //DataGrid view mouse click event handler
         //when user click the cell, password and user name will be save to clipboard
@@ -283,7 +279,6 @@ namespace PasswordApplication
                 // Notice that the query results are stored in the table of the DataSet.
                 foreach (DataRow row in ResultSet.Tables[0].Rows)
                 {
-                    //MessageBox.Show(row["CategoryName"].ToString());
                     // Create the new node. Notice that the CategoryId is stored in the Value property 
                     // of the node. This will make querying for items in a specific category easier when
                     // the third-level nodes are created. 
@@ -326,6 +321,66 @@ namespace PasswordApplication
             {
                 MessageBox.Show("Please select a record first.");
 
+            }
+        }
+
+        //After user click the Node, save the corresponding categoryId and categoryName to selectCategoryId
+        private void CategoryTreeView_NodeMouseClick_1(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Node.Tag != null)
+            {
+                if ((int)e.Node.Tag != 11000001)
+                {
+                    selectedCategoryID = (int)e.Node.Tag;
+                    selectedCategoryName = e.Node.Text;
+                }
+            }
+        }
+
+        //When user click "Delete category button", trigger the DeleteCategoryController
+        private void DeleteCategoryButton_Click(object sender, EventArgs e)
+        {
+            if (selectedCategoryID != 0)
+            {
+                //Instantiate new Category and pass CategoryID to the categoryName property
+                Category category = new Category();
+                category.CategoryID= selectedCategoryID;
+                category.CategoryName = selectedCategoryName;
+                //Call DeleteCategoryController to delete the Category
+                DeleteCategoryController deleteController = new DeleteCategoryController(this, category);
+                //After delete reset userRecord to 0
+                if (deleteController.DeleteCategory())
+                    selectedCategoryID = 0;
+            }
+            else
+            {
+                MessageBox.Show("Please select a category.");
+                return;
+            }
+        }
+
+        private void EditCategoetButton_Click(object sender, EventArgs e)
+        {
+            if (selectedCategoryID != 0)
+            {
+                //Instantiate new Category and pass CategoryID to the categoryName property
+                this.Hide();
+                Category changeCategory = new Category();
+                changeCategory.CategoryID = selectedCategoryID;
+                changeCategory.CategoryName = selectedCategoryName;
+                ManupulateCategoryForm MCF = new ManupulateCategoryForm();
+                MCF.setOldCategory(changeCategory);
+                MCF.Text = "Edit Category";
+                //Set the controller to be call is EditController
+                MCF.setMethodCall("Edit");
+                MCF.CategoryNameTextBox.Text = selectedCategoryName;
+                MCF.manupulateCategoryLabel.Text = "Edit Category Name:";
+                MCF.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Please select a category.");
+                return;
             }
         }
     }

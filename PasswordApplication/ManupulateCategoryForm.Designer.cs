@@ -108,8 +108,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Label manupulateCategoryLabel;
-        private System.Windows.Forms.TextBox CategoryNameTextBox;
+        public System.Windows.Forms.Label manupulateCategoryLabel;
+        public System.Windows.Forms.TextBox CategoryNameTextBox;
         private System.Windows.Forms.Label UserNameLabel;
         private System.Windows.Forms.Button SaveNewCategoryButton;
         private System.Windows.Forms.Button cancelAddCatrgoryButton;

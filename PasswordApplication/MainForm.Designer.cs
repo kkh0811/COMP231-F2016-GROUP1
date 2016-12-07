@@ -76,7 +76,7 @@
             this.CategoryFlowLayoutPanel1.Controls.Add(this.CategoryTreeView);
             this.CategoryFlowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.CategoryFlowLayoutPanel1.Location = new System.Drawing.Point(0, 26);
-			this.CategoryFlowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
+            this.CategoryFlowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.CategoryFlowLayoutPanel1.Name = "CategoryFlowLayoutPanel1";
             this.CategoryFlowLayoutPanel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.CategoryFlowLayoutPanel1.Size = new System.Drawing.Size(196, 440);
@@ -99,6 +99,7 @@
             this.CategoryTreeView.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.CategoryTreeView.Size = new System.Drawing.Size(192, 433);
             this.CategoryTreeView.TabIndex = 1;
+            this.CategoryTreeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.CategoryTreeView_NodeMouseClick_1);
             this.CategoryTreeView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.stopTreeViewSound);
             // 
             // InteractCategoryPanel
@@ -136,6 +137,7 @@
             this.DeleteCategoryButton.TabIndex = 2;
             this.DeleteCategoryButton.Text = "Delete Category";
             this.DeleteCategoryButton.UseVisualStyleBackColor = false;
+            this.DeleteCategoryButton.Click += new System.EventHandler(this.DeleteCategoryButton_Click);
             // 
             // EditCategoetButton
             // 
@@ -151,6 +153,7 @@
             this.EditCategoetButton.TabIndex = 1;
             this.EditCategoetButton.Text = "Edit Category";
             this.EditCategoetButton.UseVisualStyleBackColor = false;
+            this.EditCategoetButton.Click += new System.EventHandler(this.EditCategoetButton_Click);
             // 
             // AddCategoryButton
             // 
