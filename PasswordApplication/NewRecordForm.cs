@@ -25,7 +25,7 @@ namespace PasswordApplication
         PasswordValidator pv = new PasswordValidator();
         NoteValidator nv = new NoteValidator();
         UserRecord userRecord = new UserRecord();
-        
+
 
         SQLServerConnMaker SQLconn = new SQLServerConnMaker();
         //private DataViewManager dsView;

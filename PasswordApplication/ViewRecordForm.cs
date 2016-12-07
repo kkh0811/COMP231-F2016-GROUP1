@@ -12,6 +12,7 @@ namespace PasswordApplication
 {
     public partial class ViewRecordForm : Form
     {
+        Decryptor decryptor = new Decryptor();
         public ViewRecordForm()
         {
             InitializeComponent();
@@ -23,11 +24,29 @@ namespace PasswordApplication
        
         private void ViewRecordForm_Load(object sender, EventArgs e)
         {
-          
+            
+
+            //display the selected information
+            //get information from DB and show the necessary information
+            UserNameTextBox.Text = pUserName;
+            //PasswordTextBox.Text = pPassword;
+            PasswordTextBox.Text = decryptor.AESDecrypt256(pPassword);
+            NoteTextBox.Text = pNote;
+
         }
         private void EditRecordButton_Click(object sender, EventArgs e)
         {
+
             
+            //open edit records form
+            EditRecordForm erf = new EditRecordForm();
+            erf.GrabRecordID = pRecordID;
+            erf.EditUserName = pUserName;
+            erf.EditCategory = pCategory;
+            erf.EditPassword = decryptor.AESDecrypt256(pPassword);
+            erf.EditNote = pNote;
+            erf.Show();
+            this.Hide();
         }
 
         private void OkButton_Click(object sender, EventArgs e)
