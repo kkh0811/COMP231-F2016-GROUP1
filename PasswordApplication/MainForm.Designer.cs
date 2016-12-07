@@ -92,10 +92,10 @@
             this.CategoryTreeView.Location = new System.Drawing.Point(0, 8);
             this.CategoryTreeView.Margin = new System.Windows.Forms.Padding(0, 8, 0, 0);
             this.CategoryTreeView.Name = "CategoryTreeView";
-            treeNode1.Name = "CategoryRoot";
-            treeNode1.Text = "Category";
+            treeNode2.Name = "CategoryRoot";
+            treeNode2.Text = "Category";
             this.CategoryTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode2});
             this.CategoryTreeView.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.CategoryTreeView.Size = new System.Drawing.Size(192, 433);
             this.CategoryTreeView.TabIndex = 1;
@@ -203,7 +203,6 @@
             this.userRecorsDataGripToolTip.SetToolTip(this.userRecordDataGridView, "Click the cooresponding cell to copy the user name or password");
             this.userRecordDataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.userRecordDataGridView_CellFormatting);
             this.userRecordDataGridView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.CopyPaste_Click);
-            this.userRecordDataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.userRecordDataGridView_CellMouseDoubleClick);
             this.userRecordDataGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.userRecordDataGridView_MouseDown);
             // 
             // UserRightClickContextMenuStrip

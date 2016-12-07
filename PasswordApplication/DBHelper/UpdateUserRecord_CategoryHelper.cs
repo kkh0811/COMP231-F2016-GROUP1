@@ -12,13 +12,13 @@ namespace PasswordApplication.Controller
     internal class UpdateUserRecord_categoryHelper : IEdit
     {
         bool isUpdated;
-        public bool EditEntity(AbDatabaseEntity Entity)
+        public bool EditEntity(params AbDatabaseEntity[] Entity)
         {
             //Initial connection maker to make a connention 
             SQLServerConnMaker SQLconn = new SQLServerConnMaker();
             SqlConnection conn = SQLconn.Connect();
             //Initial UserRecord entity
-            Category category = (Category)Entity;
+            Category category = (Category)Entity[0];
 
             // Delete record from UserRecordCategories table
             SqlCommand updateCategoryCmd;

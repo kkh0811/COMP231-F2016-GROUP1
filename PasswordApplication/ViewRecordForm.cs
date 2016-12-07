@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PasswordApplication.Model;
 
 namespace PasswordApplication
 {
@@ -17,15 +18,45 @@ namespace PasswordApplication
         {
             InitializeComponent();
         }
-		
+
+        private int pRecordID;
+        private string pUserName;
+        private string pPassword;
+        private string pNote;
+        private string pCategory;
 
         //getter and setter
-        public int GrabRecordID;
+        public int GrabRecordID
+        {
+            get { return pRecordID; }
+            set { pRecordID = value; }
+        }
+        public string ViewUserName
+        {
+            get { return pUserName; }
+            set { pUserName = value; }
+        }
+        public string ViewPassword
+        {
+            get { return pPassword; }
+            set { pPassword = value; }
+        }
+        public string ViewNote
+        {
+            get { return pNote; }
+            set { pNote = value; }
+        }
+        public string ViewCategory
+        {
+            get { return pCategory; }
+            set { pCategory = value; }
+        }
+
+        //getter and setter
+       // public int GrabRecordID;
        
         private void ViewRecordForm_Load(object sender, EventArgs e)
         {
-            
-
             //display the selected information
             //get information from DB and show the necessary information
             UserNameTextBox.Text = pUserName;

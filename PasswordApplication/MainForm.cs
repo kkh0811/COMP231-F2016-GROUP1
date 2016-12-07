@@ -263,18 +263,6 @@ namespace PasswordApplication
             }
         }
 
-        private void userRecordDataGridView_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            vrf.GrabRecordID = (Int32)userRecordDataGridView.CurrentRow.Cells[0].Value;
-            vrf.ViewUserName = this.userRecordDataGridView.CurrentRow.Cells[1].Value.ToString();
-            vrf.ViewPassword = this.userRecordDataGridView.CurrentRow.Cells[2].Value.ToString();
-            vrf.ViewNote = this.userRecordDataGridView.CurrentRow.Cells[3].Value.ToString();
-            vrf.Show();
-            this.Hide();
-
-        }
-
-
         //Populate Category treeview 
         public void PopulateCategories()
         {
