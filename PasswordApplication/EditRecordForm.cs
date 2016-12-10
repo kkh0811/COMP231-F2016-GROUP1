@@ -19,6 +19,7 @@ namespace PasswordApplication
     {
         internal UserRecord oldUserRecord;
         //instantiate objs
+        Decryptor decryptor = new Decryptor();
         UserRecord editUserRecord = new UserRecord();
         Category selectedCategory = new Category();
         ServiceNameValidator snv = new ServiceNameValidator();

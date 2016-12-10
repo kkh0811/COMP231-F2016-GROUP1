@@ -313,10 +313,11 @@ namespace PasswordApplication
         {
             UserRecord passUserRecord = new UserRecord();
             try
-            {                
+            {
+                Decryptor decryptor = new Decryptor();
                 passUserRecord.RecordID = userRecordID;
                 passUserRecord.UserName = this.userRecordDataGridView.CurrentRow.Cells[1].Value.ToString();
-                passUserRecord.UserPassword = this.userRecordDataGridView.CurrentRow.Cells[2].Value.ToString();
+                passUserRecord.UserPassword = decryptor.AESDecrypt256(this.userRecordDataGridView.CurrentRow.Cells[2].Value.ToString());
                 passUserRecord.ServiceName = this.userRecordDataGridView.CurrentRow.Cells[3].Value.ToString();
                 passUserRecord.CategoryName = this.userRecordDataGridView.CurrentRow.Cells[6].Value.ToString();
                 passUserRecord.Note = this.userRecordDataGridView.CurrentRow.Cells[4].Value.ToString();

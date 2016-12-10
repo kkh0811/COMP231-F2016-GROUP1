@@ -13,7 +13,6 @@ namespace PasswordApplication
 {
     public partial class ViewRecordForm : Form
     {
-        
         public ViewRecordForm()
         {
             InitializeComponent();
@@ -30,8 +29,7 @@ namespace PasswordApplication
         {
             //display the selected information
             //get information from DB and show the necessary information
-             
-            //PasswordTextBox.Text = decryptor.AESDecrypt256(pPassword);
+            
             
 
         }
