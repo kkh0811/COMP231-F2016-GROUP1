@@ -13,44 +13,15 @@ namespace PasswordApplication
 {
     public partial class ViewRecordForm : Form
     {
-        Decryptor decryptor = new Decryptor();
+        
         public ViewRecordForm()
         {
             InitializeComponent();
         }
 
-        private int pRecordID;
-        private string pUserName;
-        private string pPassword;
-        private string pNote;
-        private string pCategory;
-
         //getter and setter
-        public int GrabRecordID
-        {
-            get { return pRecordID; }
-            set { pRecordID = value; }
-        }
-        public string ViewUserName
-        {
-            get { return pUserName; }
-            set { pUserName = value; }
-        }
-        public string ViewPassword
-        {
-            get { return pPassword; }
-            set { pPassword = value; }
-        }
-        public string ViewNote
-        {
-            get { return pNote; }
-            set { pNote = value; }
-        }
-        public string ViewCategory
-        {
-            get { return pCategory; }
-            set { pCategory = value; }
-        }
+        public int GrabRecordID;
+        
 
         //getter and setter
        // public int GrabRecordID;
@@ -59,10 +30,9 @@ namespace PasswordApplication
         {
             //display the selected information
             //get information from DB and show the necessary information
-            UserNameTextBox.Text = pUserName;
-
-            PasswordTextBox.Text = decryptor.AESDecrypt256(pPassword);
-            NoteTextBox.Text = pNote;
+             
+            //PasswordTextBox.Text = decryptor.AESDecrypt256(pPassword);
+            
 
         }
         /// <summary>

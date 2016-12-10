@@ -15,6 +15,7 @@ namespace PasswordApplication
     {
         public bool SelectEntity(AbDatabaseEntity Entity)
         {
+            Decryptor decryptor = new Decryptor();
             ViewRecordForm vrf = new ViewRecordForm();
 
             //Initial connection maker to make a connention 
@@ -40,7 +41,7 @@ namespace PasswordApplication
                 vrf.CategoryOptionComboBox.Items.Add(categoryName);
                 vrf.CategoryOptionComboBox.SelectedIndex = 0;
                 vrf.UserNameTextBox.Text = userName;
-                vrf.PasswordTextBox.Text = userPassword;
+                vrf.PasswordTextBox.Text = decryptor.AESDecrypt256(userPassword);
                 vrf.PasswordTextBox.PasswordChar = '*';
                 vrf.NoteTextBox.Text = note;
                 vrf.ServiceNameTextBox.Text = serviceName;
